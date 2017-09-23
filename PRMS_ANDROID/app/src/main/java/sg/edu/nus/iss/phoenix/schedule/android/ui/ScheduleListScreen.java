@@ -1,8 +1,8 @@
-package phoenix.schedule.android.ui;
+package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
 import android.app.Activity;
-import phoenix.core.android.controller.ControlFactory;
-import phoenix.core.android.controller.MainController;
+import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 
 /**
  * @author The Administrator
