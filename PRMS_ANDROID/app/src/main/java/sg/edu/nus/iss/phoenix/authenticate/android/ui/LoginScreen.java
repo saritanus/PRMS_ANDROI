@@ -36,7 +36,7 @@ public class LoginScreen extends AppCompatActivity {
         mUsernameEditText = (EditText) findViewById(R.id.username);
         mPasswordEditText = (EditText) findViewById(R.id.password);
 
-        // mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
+        //mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
         mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
@@ -68,7 +68,7 @@ public class LoginScreen extends AppCompatActivity {
 
     // Show the error and hide the data.
     public void showErrorMessage() {
-        mSearchResultsTextView.setVisibility(View.INVISIBLE);
+        //mSearchResultsTextView.setVisibility(View.INVISIBLE);
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
     }
 
