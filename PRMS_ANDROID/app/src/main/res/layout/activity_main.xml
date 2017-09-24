@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_login"
+
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context="sg.edu.nus.iss.phoenix.core.android.ui.MainScreen">
 
     <TextView
@@ -15,7 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Phoenix"
         android:textColor="@color/white"
         android:textSize="35dp"
         tools:textColor="@android:color/holo_blue_dark" />
@@ -24,77 +22,94 @@
         android:id="@+id/Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
         android:text="Welcome to Phoenix Radio Corporation"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        tools:textColor="@android:color/holo_blue_dark" />
+        android:textColor="#d52d2c2c"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        android:layout_above="@+id/username"
+        android:layout_centerHorizontal="true" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:background="#00ffffff"
+        android:hint="@string/hint_username"
+        android:textAlignment="center"
+        android:textSize="27dp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:text="hjghjg"
+        android:textColor="#e6e6e5e5"
+        android:textColorHint="@color/input_login_hint"
+        android:layout_marginBottom="51dp"
+        android:layout_above="@+id/button_schedule"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+
+
+    <Button
+        android:id="@+id/button_schedule"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="Schedule"
+
+        android:padding="15dp"
+        android:textColor="#d52d2c2c"
+        android:layout_alignTop="@+id/button_radio_program"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button_user"
+        android:layout_width="100dp"
+        android:layout_gravity="center"
+        android:layout_height="100dp"
+
+        android:padding="15dp"
+        android:text="User"
+        android:textColor="#d52d2c2c"
+        android:layout_marginEnd="13dp"
+        android:layout_below="@+id/username"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/button_radio_program"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+
+        android:padding="15dp"
+        android:text="Radio Program"
+        android:textColor="#d52d2c2c"
+        android:layout_marginBottom="73dp"
+        android:layout_above="@+id/btnLogout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:background="#af236056"
+        android:textSize="20dp"
+        android:text="@string/btn_logout"
+        android:textColor="#94ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="117dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@color/white"
-            android:hint="@string/hint_username"
-            android:textSize="15dp"
-            android:padding="10dp"
-            android:textColor="@color/input_login"
-            android:textColorHint="@color/input_login_hint" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
 
-        <!-- Login Button -->
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView"
+        android:layout_above="@+id/Welcome" />
 
-
-
-        <Button
-            android:id="@+id/button_radio_program"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@color/btn_login_bg"
-            android:text="@string/btn_program"
-            android:textColor="@color/btn_login" />
-
-        <Button
-            android:id="@+id/button_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@color/btn_login_bg"
-            android:text="@string/btn_schedule"
-            android:textColor="@color/btn_login" />
-
-        <Button
-            android:id="@+id/button_user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@color/btn_login_bg"
-            android:text="@string/btn_user"
-            android:textColor="@color/btn_login" />
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@color/btn_login_bg"
-            android:text="@string/btn_logout"
-            android:textColor="@color/btn_login" />
-        <!-- Link to Login Screen -->
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

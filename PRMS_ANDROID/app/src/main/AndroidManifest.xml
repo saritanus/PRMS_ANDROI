@@ -31,17 +31,21 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".authenticate.android.ui.LoginScreen">
+        <activity android:name=".authenticate.android.ui.LoginScreen" android:theme="@style/NoAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".core.android.ui.MainScreen" />
+        <activity android:name=".core.android.ui.MainScreen" android:theme="@style/NoAppTheme">
+
+        </activity>
         <activity android:name=".radioprogram.android.ui.ProgramListScreen" />
         <activity android:name=".radioprogram.android.ui.MaintainProgramScreen" />
         <activity android:name=".radioprogram.android.ui.ReviewSelectProgramScreen"></activity>
     </application>
+
 
 </manifest>
