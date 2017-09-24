@@ -1,7 +1,5 @@
 package sg.edu.nus.iss.phoenix.authenticate.android.ui;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
@@ -26,7 +23,6 @@ public class LoginScreen extends AppCompatActivity {
     private TextView mSearchResultsTextView;
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
-    private VideoView mVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +35,11 @@ public class LoginScreen extends AppCompatActivity {
         mbtn_login = (Button) findViewById(R.id.btnLogin);
         mUsernameEditText = (EditText) findViewById(R.id.username);
         mPasswordEditText = (EditText) findViewById(R.id.password);
+
+        // mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
+        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
+        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+
         // Set a click listener on Login Button
         mbtn_login.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
@@ -49,28 +50,6 @@ public class LoginScreen extends AppCompatActivity {
             }
 
         });
-
-
-
-  /*      mVideoView = (VideoView) findViewById(R.id.videoView);
-
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.front0);
-
-        mVideoView.setVideoURI(uri);
-        mVideoView.start();
-
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.setLooping(true);
-            }
-        });
-
-    */
-
-
-
-
     }
 
     @Override
