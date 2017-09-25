@@ -1,6 +1,8 @@
 package sg.edu.nus.iss.phoenix.user.android.delegate;
 
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
+import sg.edu.nus.iss.phoenix.user.android.controller.UserController;
+
 import android.os.AsyncTask;
 
 /**
@@ -10,7 +12,7 @@ import android.os.AsyncTask;
  */
 public class CreateUserDelegate extends AsyncTask {
 
-	public CreateUserDelegate(){
+	public CreateUserDelegate(UserController userController){
 
 	}
 
