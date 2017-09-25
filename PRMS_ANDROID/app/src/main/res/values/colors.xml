@@ -32,6 +32,4 @@
     <color name="lbl_name">#333333</color>
     <color name="btn_logut_bg">#ff6861</color>
     <color name="comment_light_background">#d6d6d6</color>
-    <color name="tab">#bb122622</color>
-    <color name="tab_dark">#cb020505</color>
 </resources>
