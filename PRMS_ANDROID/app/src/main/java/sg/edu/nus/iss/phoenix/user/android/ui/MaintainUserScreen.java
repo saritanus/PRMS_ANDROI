@@ -6,13 +6,13 @@ package sg.edu.nus.iss.phoenix.user.android.ui;
  * @version 1.0
  * @created 24-Sep-2017 2:09:53 AM
  */
-public class MaintainUserList {
+public class MaintainUserScreen {
 
-	public MaintainUserList(){
+	public MaintainUserScreen(){
 
 	}
 
 	public void finalize() throws Throwable {
 
 	}
-}//end MaintainUserList
+}//end MaintainUserScreen
