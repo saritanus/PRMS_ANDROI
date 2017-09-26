@@ -1,7 +1,5 @@
 package sg.edu.nus.iss.phoenix.authenticate.android.ui;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
@@ -23,7 +20,6 @@ public class LoginScreen extends AppCompatActivity {
     String userAuthResults = null;
     private Button mbtn_login;
     private EditText mUsernameEditText, mPasswordEditText;
-    private VideoView mVideoView;
     private TextView mSearchResultsTextView;
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
@@ -54,27 +50,6 @@ public class LoginScreen extends AppCompatActivity {
             }
 
         });
-
-
-
-        mVideoView = (VideoView) findViewById(R.id.videoView);
-
-      Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.front0);
-
-      mVideoView.setVideoURI(uri);
-      mVideoView.start();
-
-      mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-          @Override
-          public void onPrepared(MediaPlayer mediaPlayer) {
-              mediaPlayer.setLooping(true);
-          }
-      });
-
-
-
-
-
     }
 
     @Override

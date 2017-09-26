@@ -26,11 +26,10 @@
         android:layout_height="82dp"
         android:layout_x="-2dp"
         android:layout_y="99dp"
-        app:srcCompat="@drawable/phelogo"
+
         android:layout_marginBottom="6dp"
         android:layout_above="@+id/textView3"
         android:layout_alignEnd="@+id/videoView" />
-
 
     <EditText
         android:id="@+id/password"

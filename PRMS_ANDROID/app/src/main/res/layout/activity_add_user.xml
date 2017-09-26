@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:id="@+id/user_us_list"
     android:padding="10dp"
-    android:background="@drawable/head"
     android:orientation="vertical"
     tools:context="sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen">
 

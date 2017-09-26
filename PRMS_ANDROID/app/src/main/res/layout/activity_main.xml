@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/head"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="sg.edu.nus.iss.phoenix.core.android.ui.MainScreen">
-
 
     <TextView
         android:id="@+id/textView"
@@ -58,7 +56,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:text="Schedule"
-        android:background="@drawable/button_bg_round"
+
         android:padding="15dp"
         android:textColor="#d52d2c2c"
         android:layout_alignTop="@+id/button_radio_program"
@@ -69,7 +67,7 @@
         android:layout_width="100dp"
         android:layout_gravity="center"
         android:layout_height="100dp"
-        android:background="@drawable/button_bg_round"
+
         android:padding="15dp"
         android:text="User"
         android:textColor="#d52d2c2c"
@@ -82,7 +80,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:background="@drawable/button_bg_round"
+
         android:padding="15dp"
         android:text="Radio Program"
         android:textColor="#d52d2c2c"
@@ -90,16 +88,6 @@
         android:layout_above="@+id/btnLogout"
         android:layout_alignParentStart="true"
         android:layout_marginStart="12dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/play"
-        android:layout_below="@+id/textView"
-        android:layout_above="@+id/Welcome" />
-
 
     <Button
         android:id="@+id/btnLogout"
@@ -114,5 +102,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView"
+        android:layout_above="@+id/Welcome" />
 
 </RelativeLayout>
