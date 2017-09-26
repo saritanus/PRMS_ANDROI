@@ -1,7 +1,8 @@
 package sg.edu.nus.iss.phoenix.user.entity;
 
 /**
- * Created by User on 24/9/2017.
+ * Created by sujit ambore
+ * on 24/9/2017.
  */
 
 public class User {
@@ -20,7 +21,7 @@ public class User {
         return userRoleDescription;
     }
 
-    public void getUserRoleDescription(String userRoleDescription) {
+    public void setUserRoleDescription(String userRoleDescription) {
         this.userRoleDescription= userRoleDescription;  }
 
     public void setUserName(String userName) {

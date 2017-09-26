@@ -42,11 +42,12 @@
         </activity>
         <activity
             android:name=".core.android.ui.MainScreen"
-            android:theme="@style/NoAppTheme"></activity>
+            android:theme="@style/NoAppTheme" />
         <activity android:name=".radioprogram.android.ui.ProgramListScreen" />
         <activity android:name=".radioprogram.android.ui.MaintainProgramScreen" />
         <activity android:name=".radioprogram.android.ui.ReviewSelectProgramScreen" />
-        <activity android:name=".user.android.ui.UserListScreen"></activity>
+        <activity android:name=".user.android.ui.MaintainUserScreen" />
+        <activity android:name=".user.android.ui.SelectRoleScree"></activity>
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/user_us_list"
     android:orientation="vertical"
-    tools:context="sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen">
+    tools:context="sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen">
 
 
     <TextView

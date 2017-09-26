@@ -56,6 +56,7 @@ public class ProgramController {
         intent.putExtras(b);
 */
         MainController.displayScreen(intent);
+
     }
 
     public void onDisplayProgram(MaintainProgramScreen maintainProgramScreen) {

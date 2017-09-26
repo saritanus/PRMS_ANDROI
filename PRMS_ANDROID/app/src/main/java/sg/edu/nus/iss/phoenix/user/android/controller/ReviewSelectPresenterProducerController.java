@@ -1,14 +1,18 @@
 package sg.edu.nus.iss.phoenix.user.android.controller;
 
+import android.content.Intent;
+
 import java.util.List;
 
+import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
+import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ReviewSelectProgramScreen;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.user.entity.Presenter;
 import sg.edu.nus.iss.phoenix.user.entity.Producer;
-import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
-import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.user.entity.User;
 
 /**
- * @author Sarita
+ * @author sujit ambore
  * @version 1.0
  * @created 24-Sep-2017 2:09:55 AM
  */
@@ -16,7 +20,13 @@ public class ReviewSelectPresenterProducerController {
 
 	public Presenter m_Presenter;
 	public Producer m_Producer;
-	//public Presenter/ProducerScreen m_Presenter/ProducerScreen;
+	public Producer m_System_Admin;
+	public Producer m_System_Manager;
+
+	private static final String TAG = ReviewSelectPresenterProducerController.class.getName();
+
+
+	private User rpSelected = null;
 
 	public ReviewSelectPresenterProducerController(){
 

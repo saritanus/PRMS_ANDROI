@@ -3,12 +3,18 @@ package sg.edu.nus.iss.phoenix.user.android.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
@@ -23,28 +29,61 @@ import sg.edu.nus.iss.phoenix.user.entity.User;
 public class MaintainUserList extends AppCompatActivity{
 
 	private static final String TAG = MaintainProgramScreen.class.getName();
-	private EditText mRPNameEditText;
-	private EditText mRPDescEditText;
 
-	private User us2edit = null;
-	KeyListener mRPNameEditTextKeyListener = null;
+	private ListView mListView;
+	private UserAdapter mRPAdapter;
+	private User selectedRP = null;
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_list);
 
-		// Find all relevant views that we will need to read user input from
-		mRPNameEditText = (EditText) findViewById(R.id.maintain_user_name_text_view);
-		mRPDescEditText = (EditText) findViewById(R.id.maintain_program_desc_text_view);
-		// Keep the KeyListener for name EditText so as to enable editing after disabling it.
-		mRPNameEditTextKeyListener = mRPNameEditText.getKeyListener();
+		ArrayList<User> users = new ArrayList<User>();
+		mRPAdapter = new UserAdapter(this, users);
+
+		// Setup FAB to open EditorActivity
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ControlFactory.getProgramController().selectCreateProgram();
+			}
+		});
+
+		mListView = (ListView) findViewById(R.id.user_us_list);
+		mListView.setAdapter(mRPAdapter);
+
+
+		// Setup the item selection listener
+		mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+				// Log.v(TAG, "Radio program at position " + position + " selected.");
+				User rp = (User) adapterView.getItemAtPosition(position);
+				// Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
+				selectedRP = rp;
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				// your stuff
+			}
+		});
+
 	}
+
 	@Override
 	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		ControlFactory.getUserController().onDisplayProgram(this);
+		mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		mListView.setSelection(0);
+
+		ControlFactory.getUserController().onDisplayUserList(this);
 	}
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu options from the res/menu/menu_editor.xml file.
@@ -54,51 +93,38 @@ public class MaintainUserList extends AppCompatActivity{
 	}
 
 	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		super.onPrepareOptionsMenu(menu);
-		// If this is a new radioprogram, hide the "Delete" menu item.
-		if (us2edit == null) {
-			MenuItem menuItem = menu.findItem(R.id.action_delete);
-			menuItem.setVisible(false);
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// User clicked on a menu option in the app bar overflow menu
+		switch (item.getItemId()) {
+			// Respond to a click on the "View" menu option
+			case R.id.action_view:
+				if (selectedRP == null) {
+					// Prompt for the selection of a radio program.
+					Toast.makeText(this, "Select a user program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+					Log.v(TAG, "There is no selected radio program.");
+				}
+				else {
+					Log.v(TAG, "Viewing user  program: " + selectedRP.getUserName() + "...");
+					ControlFactory.getUserController().selectEditUser(selectedRP);
+				}
 		}
+
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// User clicked on a menu option in the app bar overflow menu
-		switch (item.getItemId()) {
-			// Respond to a click on the "Save" menu option
-			case R.id.action_save:
-				// Save radio program.
-				if (us2edit == null) { // Newly created.
-					Log.v(TAG, "Saving user " + mRPNameEditText.getText().toString() + "...");
-					User rp = new User(mRPNameEditText.getText().toString(),
-							mRPDescEditText.getText().toString());
-					ControlFactory.getUserController().selectCreateUser(rp);
-				}
-				else { // Edited.
-					Log.v(TAG, "Saving user " + us2edit.getUserName() + "...");
-					us2edit.setUserName(mRPNameEditText.getText().toString());
-					ControlFactory.getUserController().selectUpdateUser(us2edit);
-				}
-				return true;
-			// Respond to a click on the "Delete" menu option
-			case R.id.action_delete:
-				Log.v(TAG, "Deleting user " + us2edit.getUserName() + "...");
-				ControlFactory.getUserController().selectDeleteUser(us2edit);
-				return true;
-			// Respond to a click on the "Cancel" menu option
-			case R.id.action_cancel:
-				Log.v(TAG, "Canceling creating/editing radio program...");
-				ControlFactory.getUserController().selectCancelCreateEditUser();
-				return true;
-		}
-
-		return true;
+	public void onBackPressed() {
+		ControlFactory.getUserController().maintainedUser();
 	}
 
-
+	public void showUsers(List<User> users) {
+		mRPAdapter.clear();
+		for (int i = 0; i < users.size(); i++) {
+			mRPAdapter.add(users.get(i));
+		}
+	}
 	public void finalize() throws Throwable {}
 
-}//end MaintainUserList
+}
+
+//end MaintainUserList
