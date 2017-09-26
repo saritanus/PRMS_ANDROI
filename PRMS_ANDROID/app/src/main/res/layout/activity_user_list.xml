@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".user.android.ui.UserListScreen">
+    tools:context=".user.android.ui.MaintainUserList">
 
     <TableLayout
         android:layout_width="match_parent"

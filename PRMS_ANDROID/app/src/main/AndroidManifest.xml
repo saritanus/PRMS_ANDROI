@@ -45,6 +45,7 @@
             android:theme="@style/NoAppTheme"></activity>
         <activity android:name=".radioprogram.android.ui.ProgramListScreen" />
         <activity android:name=".radioprogram.android.ui.MaintainProgramScreen" />
+        <activity android:name=".user.android.ui.MaintainUserScreen" />
         <activity android:name=".radioprogram.android.ui.ReviewSelectProgramScreen" />
     </application>
 
