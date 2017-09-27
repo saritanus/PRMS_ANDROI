@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/user_us_list"
+    android:padding="10dp"
+    android:background="@drawable/head"
+    android:orientation="vertical"
+    tools:context="sg.edu.nus.iss.phoenix.schedule.android.ui.MaintainScheduleScreen">
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:background="#76939393">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            tools:text="Select RadioProgram" />
+        <Spinner
+            android:id="@+id/spinner_radioprogram"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            tools:text="Select Presenter" />
+
+        <Spinner
+            android:id="@+id/spinner_presenter"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Select Producer" />
+
+        <Spinner
+            android:id="@+id/spinner_producer"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:ems="7"
+                android:textSize="20dp"
+                android:text="Start Date:" />
+
+            <EditText
+                android:id="@+id/schedule_start_date"
+                android:layout_width="237dp"
+                android:textColorHint="#ffffff"
+                android:textColor="#ffffff"
+                android:layout_height="wrap_content"
+                android:hint="dd:mm:yy" />
+        </GridLayout>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:ems="7"
+                android:textSize="20dp"
+                android:text="Start Time:" />
+
+            <EditText
+                android:id="@+id/schedule_start_time"
+                android:layout_width="237dp"
+                android:textColorHint="#ffffff"
+                android:textColor="#ffffff"
+                android:layout_height="wrap_content"
+                android:hint="hh:mm:ss" />
+        </GridLayout>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:ems="7"
+                android:textSize="20dp"
+                android:text="Duration:" />
+
+            <EditText
+                android:id="@+id/schedule_duration"
+                android:layout_width="196dp"
+                android:hint="hh:mm:ss"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:layout_height="wrap_content"
+                android:ems="10" />
+        </GridLayout>
+
+        <Button
+            android:id="@+id/btn_Create_Role"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="Create schedule"
+            android:padding="15dp"
+            android:textColor="#d52d2c2c"
+            android:layout_centerHorizontal="true" />
+    </TableLayout>
+
+
+
+</LinearLayout>
