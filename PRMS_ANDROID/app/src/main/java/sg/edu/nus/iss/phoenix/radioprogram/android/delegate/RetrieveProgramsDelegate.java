@@ -82,11 +82,13 @@ public class RetrieveProgramsDelegate extends AsyncTask<String, Void, String> {
 
                 for (int i = 0; i < rpArray.length(); i++) {
                     JSONObject rpJson = rpArray.getJSONObject(i);
+                    int radioId = rpJson.getInt("radioId");
                     String description = rpJson.getString("description");
                     String name = rpJson.getString("name");
                     String typicalDuration = rpJson.getString("typicalDuration");
 
-                    radioPrograms.add(new RadioProgram(name, description, typicalDuration));
+                    radioPrograms.add(new RadioProgram(radioId, name, description,
+                                                        typicalDuration));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());

@@ -80,7 +80,7 @@ public class MaintainProgramScreen extends AppCompatActivity {
                     ControlFactory.getProgramController().selectCreateProgram(rp);
                 }
                 else { // Edited.
-                    Log.v(TAG, "Saving radio program " + rp2edit.getRadioProgramName() + "...");
+                    Log.v(TAG, "Saving radio program " + rp2edit.getRadioProgramId() + "...");
                     rp2edit.setRadioProgramDescription(mRPDescEditText.getText().toString());
                     rp2edit.setRadioProgramDuration(mDurationEditText.getText().toString());
                     ControlFactory.getProgramController().selectUpdateProgram(rp2edit);

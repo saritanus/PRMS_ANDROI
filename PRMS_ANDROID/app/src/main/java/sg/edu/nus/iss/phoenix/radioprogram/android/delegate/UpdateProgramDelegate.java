@@ -43,6 +43,7 @@ public class UpdateProgramDelegate extends AsyncTask<RadioProgram, Void, Boolean
 
         JSONObject json = new JSONObject();
         try {
+            json.put("radioId", params[0].getRadioProgramId());
             json.put("name", params[0].getRadioProgramName());
             json.put("description", params[0].getRadioProgramDescription());
             json.put("typicalDuration", params[0].getRadioProgramDuration());

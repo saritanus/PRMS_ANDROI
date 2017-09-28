@@ -28,16 +28,16 @@ public class DeleteProgramDelegate extends AsyncTask<String, Void, Boolean> {
     @Override
     protected Boolean doInBackground(String... params) {
         // Encode the name of radio program in case of the presence of special characters.
-        String name = null;
+        String radioId = null;
         try {
-            name = URLEncoder.encode(params[0], "UTF-8");
+            radioId = (URLEncoder.encode(params[0], "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             Log.v(TAG, e.getMessage());
             return new Boolean(false);
         }
         Uri builtUri = Uri.parse(PRMS_BASE_URL_RADIO_PROGRAM).buildUpon().build();
         builtUri = Uri.withAppendedPath(builtUri,"delete").buildUpon().build();
-        builtUri = Uri.withAppendedPath(builtUri, name).buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri, radioId).buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
         try {

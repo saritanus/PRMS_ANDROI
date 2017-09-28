@@ -71,7 +71,7 @@ public class ProgramController {
     }
 
     public void selectDeleteProgram(RadioProgram rp) {
-        new DeleteProgramDelegate(this).execute(rp.getRadioProgramName());
+        new DeleteProgramDelegate(this).execute(String.valueOf(rp.getRadioProgramId()));
     }
 
     public void programDeleted(boolean success) {

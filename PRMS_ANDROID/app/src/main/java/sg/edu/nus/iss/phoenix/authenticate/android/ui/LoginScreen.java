@@ -1,6 +1,5 @@
 package sg.edu.nus.iss.phoenix.authenticate.android.ui;
 
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
+
+/* @Author: Raju Vimal Raj
+* @Date: 25/09/2017
+* @Comment: This class does the authentication for the user*/
 
 public class LoginScreen extends AppCompatActivity {
 
@@ -20,7 +22,6 @@ public class LoginScreen extends AppCompatActivity {
     String userAuthResults = null;
     private Button mbtn_login;
     private EditText mUsernameEditText, mPasswordEditText;
-    private TextView mSearchResultsTextView;
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
 
@@ -36,7 +37,6 @@ public class LoginScreen extends AppCompatActivity {
         mUsernameEditText = (EditText) findViewById(R.id.username);
         mPasswordEditText = (EditText) findViewById(R.id.password);
 
-        //mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
         mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
@@ -53,7 +53,7 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+    protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         ControlFactory.getLoginController().onDisplay(this);
     }
