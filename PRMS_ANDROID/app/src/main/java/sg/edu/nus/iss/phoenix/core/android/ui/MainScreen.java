@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.phoenix.core.android.ui;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
 
 public class MainScreen extends AppCompatActivity {
     private Button mbtn_radio_program;
@@ -37,7 +39,9 @@ public class MainScreen extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-                ControlFactory.getMainController().selectMaintainSchedule();
+             //   ControlFactory.getMainController().selectMaintainSchedule();
+                Intent iinent= new Intent(MainScreen.this,ScheduleListScreen.class);
+                startActivity(iinent);
             }
 
         });

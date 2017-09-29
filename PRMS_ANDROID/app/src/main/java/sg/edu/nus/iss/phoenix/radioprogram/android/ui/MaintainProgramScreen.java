@@ -73,6 +73,7 @@ public class MaintainProgramScreen extends AppCompatActivity {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save radio program.
+
                 if (rp2edit == null) { // Newly created.
                     Log.v(TAG, "Saving radio program " + mRPNameEditText.getText().toString() + "...");
                     RadioProgram rp = new RadioProgram(mRPNameEditText.getText().toString(),
