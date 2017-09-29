@@ -13,16 +13,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import sg.edu.nus.iss.phoenix.R;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
-/**
- * Created by sujit ambore on 24/9/2017.
- */
-
 public class UserAdapter extends ArrayAdapter<User> {
-    private UserAdapter mUSAdapter;
 
-    public UserAdapter(@NonNull Context context, ArrayList<User> users) {
+    public UserAdapter(@NonNull Context context,  ArrayList<User> users) {
         super(context, 0, users);
     }
 
@@ -32,26 +28,23 @@ public class UserAdapter extends ArrayAdapter<User> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.activity_user_list, parent, false);
+                    R.layout.activity_add_user, parent, false);
         }
         //    Word currentWord = getItem(position);
-        User currentRP = getItem(position);
+        User currentUser = getItem(position);
 
-        EditText userPMName = (EditText)listItemView.findViewById(R.id.user_name);
-        userPMName.setText(currentRP.getUserName(), TextView.BufferType.NORMAL);
-        userPMName.setKeyListener(null); // This disables editing
+        TextView userName = (TextView)listItemView.findViewById(R.id.user_name);
+        userName.setText(currentUser.getName(), TextView.BufferType.NORMAL);
+        userName.setKeyListener(null); // This disables editing.
 
-        EditText userPMDesc = (EditText)listItemView.findViewById(R.id.user_email_id);
-        userPMDesc.setText(currentRP.getUserRoleDescription(), TextView.BufferType.NORMAL);
-        userPMDesc.setKeyListener(null);
+        TextView userEmailId = (TextView) listItemView.findViewById(R.id.user_email_id);
+        userEmailId.setText(currentUser.getEmailID(), TextView.BufferType.NORMAL);
+        userEmailId.setKeyListener(null);
+
+       /* TextView radioPMDuration = (TextView) listItemView.findViewById(R.id.maintain_program_duration_text_view);
+        radioPMDuration.setText(currentUser.getRadioProgramDuration(), TextView.BufferType.NORMAL);
+        radioPMDuration.setKeyListener(null);*/
 
         return listItemView;
-    }
-
-    public void add(User user) {
-    }
-
-    public void clear() {
-
     }
 }

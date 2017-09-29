@@ -18,7 +18,6 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
-import sg.edu.nus.iss.phoenix.radioprogram.android.ui.MaintainProgramScreen;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 /**
@@ -28,11 +27,11 @@ import sg.edu.nus.iss.phoenix.user.entity.User;
  */
 public class MaintainUserList extends AppCompatActivity{
 
-	private static final String TAG = MaintainProgramScreen.class.getName();
+	private static final String TAG = MaintainUserList.class.getName();
 
 	private ListView mListView;
-	private UserAdapter mRPAdapter;
-	private User selectedRP = null;
+	private UserAdapter mUserAdapter;
+	private User selectedUser = null;
 
 
 
@@ -42,19 +41,19 @@ public class MaintainUserList extends AppCompatActivity{
 		setContentView(R.layout.activity_user_list);
 
 		ArrayList<User> users = new ArrayList<User>();
-		mRPAdapter = new UserAdapter(this, users);
+		mUserAdapter = new UserAdapter(this, users);
 
 		// Setup FAB to open EditorActivity
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				ControlFactory.getProgramController().selectCreateProgram();
+				ControlFactory.getUserController().selectCreateUser();
 			}
 		});
 
 		mListView = (ListView) findViewById(R.id.user_list);
-		mListView.setAdapter(mRPAdapter);
+		mListView.setAdapter(mUserAdapter);
 
 
 		// Setup the item selection listener
@@ -62,9 +61,9 @@ public class MaintainUserList extends AppCompatActivity{
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 				// Log.v(TAG, "Radio program at position " + position + " selected.");
-				User rp = (User) adapterView.getItemAtPosition(position);
+				User user = (User) adapterView.getItemAtPosition(position);
 				// Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
-				selectedRP = rp;
+				selectedUser = user;
 			}
 			@Override
 			public void onNothingSelected(AdapterView<?> adapterView) {
@@ -80,7 +79,7 @@ public class MaintainUserList extends AppCompatActivity{
 		mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		mListView.setSelection(0);
 
-		ControlFactory.getUserController().onDisplayUserList(this);
+		//ControlFactory.getUserController().onDisplayUserList(this);
 	}
 
 
@@ -98,14 +97,14 @@ public class MaintainUserList extends AppCompatActivity{
 		switch (item.getItemId()) {
 			// Respond to a click on the "View" menu option
 			case R.id.action_view:
-				if (selectedRP == null) {
+				if (selectedUser == null) {
 					// Prompt for the selection of a radio program.
 					Toast.makeText(this, "Select a user program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
 					Log.v(TAG, "There is no selected radio program.");
 				}
 				else {
-					Log.v(TAG, "Viewing user  program: " + selectedRP.getUserName() + "...");
-					ControlFactory.getUserController().selectEditUser(selectedRP);
+					Log.v(TAG, "Viewing user  program: " + selectedUser.getName() + "...");
+					ControlFactory.getUserController().selectEditUser(selectedUser);
 				}
 		}
 
@@ -118,9 +117,9 @@ public class MaintainUserList extends AppCompatActivity{
 	}
 
 	public void showUsers(List<User> users) {
-		mRPAdapter.clear();
+		mUserAdapter.clear();
 		for (int i = 0; i < users.size(); i++) {
-			mRPAdapter.add(users.get(i));
+			mUserAdapter.add(users.get(i));
 		}
 	}
 	public void finalize() throws Throwable {}

@@ -1,52 +1,119 @@
 package sg.edu.nus.iss.phoenix.user.android.ui;
 
-import android.app.Activity;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
-/**
- * @author gautam krishnan
- * @version 1.0
- * @created 24-Sep-2017 2:09:57 AM
- */
-public class UserListScreen extends Activity {
+import java.util.ArrayList;
+import java.util.List;
 
+import sg.edu.nus.iss.phoenix.R;
+import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.user.entity.User;
 
+public class UserListScreen extends AppCompatActivity {
+	// Tag for logging
+	private static final String TAG = UserListScreen.class.getName();
 
-	public void finalize() throws Throwable {
-		super.finalize();
+	// private EditText mRPNameEditText;
+	// private EditText mRPDescEditText;
+	// private EditText mDurationEditText;
+	private ListView mListView;
+	private UserAdapter mUserAdapter;
+	private User selectedUser = null;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_user_list);
+
+		ArrayList<User> users = new ArrayList<User>();
+		mUserAdapter = new UserAdapter(this, users);
+
+		// Setup FAB to open EditorActivity
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ControlFactory.getUserController().selectCreateUser();
+			}
+		});
+
+		mListView = (ListView) findViewById(R.id.user_list);
+		mListView.setAdapter(mUserAdapter);
+
+		// Setup the item selection listener
+		mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+				 Log.v(TAG, "User at position " + position + " selected.");
+				User user = (User) adapterView.getItemAtPosition(position);
+				 Log.v(TAG, "User is " + user.getName());
+				selectedUser = user;
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				// your stuff
+			}
+		});
 	}
-	public void UserListScreen(){
 
+	@Override
+	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		mListView.setSelection(0);
+		ControlFactory.getUserController().onDisplayUserList(this);
 	}
 
-	public void onCreate(){
-
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu options from the res/menu/menu_editor.xml file.
+		// This adds menu items to the app bar.
+		getMenuInflater().inflate(R.menu.menu_list, menu);
+		return true;
 	}
 
-	public void onPostCreate(){
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// User clicked on a menu option in the app bar overflow menu
+		switch (item.getItemId()) {
+			// Respond to a click on the "View" menu option
+			case R.id.action_view:
+				if (selectedUser == null) {
+					// Prompt for the selection of a radio program.
+					Toast.makeText(this, "Select a radio program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+					Log.v(TAG, "There is no selected radio program.");
+				}
+				else {
+					Log.v(TAG, "Viewing radio program: " + selectedUser.getName() + "...");
+					ControlFactory.getUserController().selectEditUser(selectedUser);
+				}
+		}
 
+		return true;
 	}
 
-	public void selectCreateProgram(){
-
+	@Override
+	public void onBackPressed() {
+		ControlFactory.getProgramController().maintainedProgram();
 	}
 
-	public void selectCreateUser(){
-
+	public void showUsers(List<User> users) {
+		mUserAdapter.clear();
+		for (int i = 0; i < users.size(); i++) {
+			mUserAdapter.add(users.get(i));
+		}
 	}
+}
 
-	public void selectDeleteUser(){
-
-	}
-
-	public void selectModifyUser(){
-
-	}
-
-	public void selelctViewProgram(){
-
-	}
-
-	public void showUsers(){
-
-	}
-}//end UserListScreen

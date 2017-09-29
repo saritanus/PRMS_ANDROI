@@ -76,7 +76,6 @@ public class ProgramListScreen extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setSelection(0);
-
         ControlFactory.getProgramController().onDisplayProgramList(this);
     }
 
