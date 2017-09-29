@@ -11,8 +11,8 @@ import sg.edu.nus.iss.phoenix.user.android.delegate.CreateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.android.delegate.DeleteUserDelegate;
 import sg.edu.nus.iss.phoenix.user.android.delegate.RetrieveUsersDelegate;
 import sg.edu.nus.iss.phoenix.user.android.delegate.UpdateUserDelegate;
-import sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserList;
 import sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen;
+import sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 
@@ -24,28 +24,27 @@ import sg.edu.nus.iss.phoenix.user.entity.User;
 public class UserController {
     private static final String TAG = UserController.class.getName();
 
-    private MaintainUserList maintainUserList;
+    private UserListScreen userListScreen;
     private MaintainUserScreen maintainUserScreen;
     private User us2edit = null;
-
     public void startUseCase() {
         us2edit = null;
-        Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
+        Intent intent = new Intent(MainController.getApp(), UserListScreen.class);
         MainController.displayScreen(intent);
     }
 
-    public void onDisplayUserList(MaintainUserList maintainUserList) {
-        this.maintainUserList = maintainUserList;
+    public void onDisplayUserList(UserListScreen userListScreen) {
+        this.userListScreen = userListScreen;
         new RetrieveUsersDelegate(this).execute("all");
     }
 
     public void userRetrieved(List<User> users) {
-        maintainUserScreen.showUsers(users);
+        userListScreen.showUsers(users);
     }
 
-    public void selectCreateUser(User rp) {
+    public void selectCreateUser() {
         us2edit = null;
-        new CreateUserDelegate(this).execute(rp);
+        //new CreateUserDelegate(this).execute();
         Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
         MainController.displayScreen(intent);
 
@@ -53,8 +52,7 @@ public class UserController {
 
     public void selectEditUser(User users) {
         us2edit = users;
-        Log.v(TAG, "Editing user name: " + users.getUserName() + "...");
-
+        Log.v(TAG, "Editing user name: " + users.getName() + "...");
         Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
         MainController.displayScreen(intent);
     }
@@ -72,7 +70,7 @@ public class UserController {
     }
 
     public void selectDeleteUser(User us) {
-        new DeleteUserDelegate(this).execute(us.getUserName());
+        new DeleteUserDelegate(this).execute(us.getName());
     }
 
     public void userDeleted(boolean success) {
@@ -85,8 +83,9 @@ public class UserController {
         startUseCase();
     }
 
-    public void selectCreateUsers(User us) {
-        new CreateUserDelegate(this).execute(us);
+
+    public void selectCreateUser(User user) {
+        new CreateUserDelegate(this).execute(user);
     }
 
     public void userCreated(boolean success) {

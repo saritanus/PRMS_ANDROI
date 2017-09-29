@@ -48,15 +48,6 @@
         android:layout_height="wrap_content"
         android:hint="dd:mm:yy" />
 
-    <Button
-        android:id="@+id/btn_Create_Role"
-        android:layout_gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="Create user"
-        android:padding="15dp"
-        android:textColor="#d52d2c2c"
-        android:layout_centerHorizontal="true" />
     </TableLayout>
 
 </LinearLayout>

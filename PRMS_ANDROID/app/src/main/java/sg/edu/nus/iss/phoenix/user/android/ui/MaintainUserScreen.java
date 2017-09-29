@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
@@ -21,12 +22,13 @@ public class MaintainUserScreen extends AppCompatActivity {
 	// Tag for logging
 	private static final String TAG = MaintainUserScreen.class.getName();
 
-	private EditText mRPNameEditText;
-	private EditText mRPDescEditText;
+	private EditText mUserNameEditText;
+	private EditText mUserEmailEditText;
+	private EditText mUserJoiningDateText;
 	//private User selectedRP = null;
-	private User rp2edit = null;
+	private User userEdit = null;
 	private UserAdapter mRPAdapter;
-	KeyListener mRPNameEditTextKeyListener = null;
+	KeyListener mUserNameEditTextKeyListener = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,11 @@ public class MaintainUserScreen extends AppCompatActivity {
 		setContentView(R.layout.activity_add_user);
 
 		// Find all relevant views that we will need to read user input from
-		mRPNameEditText = (EditText) findViewById(R.id.user_name);
-		mRPDescEditText = (EditText) findViewById(R.id.user_email_id);
+		mUserNameEditText = (EditText) findViewById(R.id.user_name);
+		mUserEmailEditText = (EditText) findViewById(R.id.user_email_id);
+		mUserJoiningDateText = (EditText) findViewById(R.id.user_joining_date);
 		// Keep the KeyListener for name EditText so as to enable editing after disabling it.
-		mRPNameEditTextKeyListener = mRPNameEditText.getKeyListener();
+		mUserNameEditTextKeyListener = mUserNameEditText.getKeyListener();
 	}
 
 	@Override
@@ -58,7 +61,7 @@ public class MaintainUserScreen extends AppCompatActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 		// If this is a new radioprogram, hide the "Delete" menu item.
-		if (rp2edit == null) {
+		if (userEdit == null) {
 			MenuItem menuItem = menu.findItem(R.id.action_delete);
 			menuItem.setVisible(false);
 		}
@@ -72,22 +75,26 @@ public class MaintainUserScreen extends AppCompatActivity {
 			// Respond to a click on the "Save" menu option
 			case R.id.action_save:
 				// Save radio program.
-				if (rp2edit == null) { // Newly created.
-					Log.v(TAG, "Saving user " + mRPNameEditText.getText().toString() + "...");
-					User rp = new User(mRPNameEditText.getText().toString(),
-							mRPDescEditText.getText().toString());
-					ControlFactory.getUserController().selectCreateUser(rp);
+				if (userEdit == null) { // Newly created.
+					Log.v(TAG, "Saving user " + mUserNameEditText.getText().toString() + "...");
+					User user = new User();
+					user.setName(mUserNameEditText.getText().toString());
+					user.setEmailID(mUserEmailEditText.getText().toString());
+					user.setJoiningDate(mUserJoiningDateText.getText().toString());
+					user.setPassword("password");
+					ControlFactory.getUserController().selectCreateUser(user);
 				} else { // Edited.
-					Log.v(TAG, "Saving user program " + rp2edit.getUserName() + "...");
-					rp2edit.setUserName(mRPDescEditText.getText().toString());
-					rp2edit.setUserRoleDescription(mRPDescEditText.getText().toString());
-					ControlFactory.getUserController().selectUpdateUser(rp2edit);
+					Log.v(TAG, "Saving user program " + userEdit.getName() + "...");
+					userEdit.setUserId(userEdit.getUserId());
+					userEdit.setName(mUserNameEditText.getText().toString());
+					userEdit.setEmailID(mUserEmailEditText.getText().toString());
+					ControlFactory.getUserController().selectUpdateUser(userEdit);
 				}
 				return true;
 			// Respond to a click on the "Delete" menu option
 			case R.id.action_delete:
-				Log.v(TAG, "Deleting user " + rp2edit.getUserName() + "...");
-				ControlFactory.getUserController().selectDeleteUser(rp2edit);
+				Log.v(TAG, "Deleting user " + userEdit.getName() + "...");
+				ControlFactory.getUserController().selectDeleteUser(userEdit);
 				return true;
 			// Respond to a click on the "Cancel" menu option
 			case R.id.action_cancel:
@@ -105,18 +112,18 @@ public class MaintainUserScreen extends AppCompatActivity {
 	}
 
 	public void createUser() {
-		this.rp2edit = null;
-		mRPNameEditText.setText("", TextView.BufferType.EDITABLE);
-		mRPDescEditText.setText("", TextView.BufferType.EDITABLE);
-		mRPNameEditText.setKeyListener(mRPNameEditTextKeyListener);
+		this.userEdit = null;
+		mUserNameEditText.setText("", TextView.BufferType.EDITABLE);
+		mUserEmailEditText.setText("", TextView.BufferType.EDITABLE);
+		mUserNameEditText.setKeyListener(mUserNameEditTextKeyListener);
 	}
 
 	public void editUser(User us2edit) {
-		this.rp2edit = us2edit;
+		this.userEdit = us2edit;
 		if (us2edit != null) {
-			mRPNameEditText.setText(rp2edit.getUserName(), TextView.BufferType.NORMAL);
-			mRPDescEditText.setText(rp2edit.getUserRoleDescription(), TextView.BufferType.EDITABLE);
-			mRPNameEditText.setKeyListener(null);
+			mUserNameEditText.setText(userEdit.getName(), TextView.BufferType.NORMAL);
+			mUserEmailEditText.setText(userEdit.getEmailID(), TextView.BufferType.EDITABLE);
+			mUserNameEditText.setKeyListener(null);
 		}
 	}
 
@@ -127,24 +134,6 @@ public class MaintainUserScreen extends AppCompatActivity {
 		}
 
 	}
-
-	//private UserAdapter mUSAdapter;
-//public void finalize() throws Throwable {
-//		super.finalize();
-//}
-	//public void MaintainUserScreen(){}
-	//public void onCreate(){}
-	//public void onPostCreate(){}
-	//public void selectCreateProgram(){}
-	//public void selectCreateUser(){}
-	//public void selectDeleteUser(){}
-	//public void selectModifyUser(){}
-	//public void selelctViewProgram(){}
-	//public void showUsers(List<User> user) {
-	//  mUSAdapter.clear();
-	// for (int i = 0; i < user.size(); i++) {
-	//    mUSAdapter.add(user.get(i)); } } }
-
 
 }
 

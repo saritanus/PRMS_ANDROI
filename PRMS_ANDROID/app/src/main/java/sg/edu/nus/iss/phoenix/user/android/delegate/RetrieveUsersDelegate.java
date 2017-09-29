@@ -19,11 +19,10 @@ import java.util.Scanner;
 
 import sg.edu.nus.iss.phoenix.user.android.controller.UserController;
 import sg.edu.nus.iss.phoenix.user.entity.User;
-
-import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_RADIO_PROGRAM;
+import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_USER;
 
 /**
- * @author sujit ambore
+ * @author Sujit Ambore
  * @version 1.0
  */
 public class RetrieveUsersDelegate extends AsyncTask<String, Void, String>  {
@@ -41,7 +40,7 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String>  {
 
 	@Override
 	protected String doInBackground(String... params) {
-		Uri builtUri1 = Uri.parse( PRMS_BASE_URL_RADIO_PROGRAM).buildUpon().build();
+		Uri builtUri1 = Uri.parse( PRMS_BASE_URL_USER).buildUpon().build();
 		Uri builtUri = Uri.withAppendedPath(builtUri1, params[0]).buildUpon().build();
 		Log.v(TAG, builtUri.toString());
 		URL url = null;
@@ -77,13 +76,18 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String>  {
 		if (result != null && !result.equals("")) {
 			try {
 				JSONObject reader = new JSONObject(result);
-				JSONArray rpArray = reader.getJSONArray("usList");
+				JSONArray userArray = reader.getJSONArray("userList");
 
-				for (int i = 0; i < rpArray.length(); i++) {
-					JSONObject rpJson = rpArray.getJSONObject(i);
-					String name = rpJson.getString("name");
-					String description = rpJson.getString("description");
-					users.add(new User(name, description));
+				for (int i = 0; i < userArray.length(); i++) {
+					JSONObject userJson = userArray.getJSONObject(i);
+					String name = userJson.getString("name");
+					int userId = userJson.getInt("userId");
+					String emailID = userJson.getString("emailID");
+					User temp = new User();
+					temp.setName(name);
+					temp.setUserId(userId);
+					temp.setEmailID(emailID);
+					users.add(temp);
 				}
 			} catch (JSONException e) {
 				Log.v(TAG, e.getMessage());
