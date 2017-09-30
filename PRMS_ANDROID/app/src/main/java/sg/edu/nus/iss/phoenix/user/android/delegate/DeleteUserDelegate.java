@@ -33,9 +33,9 @@ public class DeleteUserDelegate extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... params) {
 		// Encode the name of radio program in case of the presence of special characters.
-		String name = null;
+		String userid = null;
 		try {
-			name = URLEncoder.encode(params[0], "UTF-8");
+			userid = URLEncoder.encode(params[0], "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			Log.v(TAG, e.getMessage());
 			return new Boolean(false);
@@ -43,7 +43,7 @@ public class DeleteUserDelegate extends AsyncTask<String, Void, Boolean> {
 
 		Uri builtUri = Uri.parse(PRMS_BASE_URL_USER).buildUpon().build();
 		builtUri = Uri.withAppendedPath(builtUri,"delete").buildUpon().build();
-		builtUri = Uri.withAppendedPath(builtUri, name).buildUpon().build();
+		builtUri = Uri.withAppendedPath(builtUri, userid).buildUpon().build();
 		Log.v(TAG, builtUri.toString());
 		URL url = null;
 		try {

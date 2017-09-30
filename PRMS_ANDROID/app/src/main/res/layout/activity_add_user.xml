@@ -46,7 +46,7 @@
         android:id="@+id/user_joining_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="dd:mm:yy" />
+        android:hint="yy:mm:dd" />
 
     </TableLayout>
 

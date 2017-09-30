@@ -12,6 +12,7 @@ import sg.edu.nus.iss.phoenix.user.android.delegate.DeleteUserDelegate;
 import sg.edu.nus.iss.phoenix.user.android.delegate.RetrieveUsersDelegate;
 import sg.edu.nus.iss.phoenix.user.android.delegate.UpdateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen;
+import sg.edu.nus.iss.phoenix.user.android.ui.SelectRoleScreen;
 import sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
@@ -26,10 +27,16 @@ public class UserController {
 
     private UserListScreen userListScreen;
     private MaintainUserScreen maintainUserScreen;
+    private SelectRoleScreen selectRoleScreen;
     private User us2edit = null;
     public void startUseCase() {
         us2edit = null;
         Intent intent = new Intent(MainController.getApp(), UserListScreen.class);
+        MainController.displayScreen(intent);
+    }
+
+        public void roleUseCase() {
+        Intent intent = new Intent(MainController.getApp(),SelectRoleScreen.class );
         MainController.displayScreen(intent);
     }
 
@@ -70,7 +77,7 @@ public class UserController {
     }
 
     public void selectDeleteUser(User us) {
-        new DeleteUserDelegate(this).execute(us.getName());
+        new DeleteUserDelegate(this).execute(String.valueOf(us.getUserId()));
     }
 
     public void userDeleted(boolean success) {
