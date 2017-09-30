@@ -56,7 +56,7 @@ public class LoginScreen extends AppCompatActivity {
 
         });
 
-        mVideoView = (VideoView) findViewById(R.id.videoView);
+        /*mVideoView = (VideoView) findViewById(R.id.videoView);
 
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.front0);
 
@@ -68,7 +68,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mediaPlayer.setLooping(true);
             }
-        });
+        });*/
 
 
 

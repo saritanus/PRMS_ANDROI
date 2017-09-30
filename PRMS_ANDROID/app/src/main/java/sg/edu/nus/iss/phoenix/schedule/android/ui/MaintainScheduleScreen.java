@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.app.Activity;
@@ -26,13 +27,12 @@ public class MaintainScheduleScreen extends Activity implements View.OnClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_schedule_list);
-		fabbtn = (FloatingActionButton) findViewById(R.id.fab);
+		setContentView(R.layout.activity_create_schedule);
+
 		scheduleFromDate = (EditText) findViewById(R.id.schedule_from_date);
 		scheduleToDate = (EditText) findViewById(R.id.schedule_to_date);
 		scheduleFromDate.setOnClickListener(this);
 		scheduleToDate.setOnClickListener(this);
-		fabbtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -76,7 +76,9 @@ public class MaintainScheduleScreen extends Activity implements View.OnClickList
 			datePickerDialog.show();
 
 		}
-		}
+
+
+	}
 
 }
 

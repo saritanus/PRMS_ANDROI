@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="@drawable/head"
     tools:context=".radioprogram.android.ui.MaintainProgramScreen">
 
 <TableLayout
@@ -16,16 +17,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
             android:text="Name"
             tools:text="Name" />
         <EditText
         android:id="@+id/maintain_program_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Radio Program Name" />
+            android:textColor="#ffffff"
+            android:hint="Enter Radio program"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
             android:text="Description"
             tools:text="Description" />
 
@@ -33,10 +38,13 @@
             android:id="@+id/maintain_program_desc_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="one" />
+            android:textColor="#ffffff"
+                android:hint="Enter Description" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
             android:text="Duration"
             tools:text="Duration" />
 
@@ -45,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="8"
-            android:text="00:30:00"
-            tools:text="00:30:00" />
+            android:textColor="#ffffff"
+            android:hint="00:00:00"/>
 
 </TableLayout>
     </LinearLayout>

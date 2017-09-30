@@ -1,12 +1,16 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import sg.edu.nus.iss.phoenix.R;
+import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 
 /**
  * @author The Administrator
@@ -19,6 +23,7 @@ public class ScheduleListScreen extends AppCompatActivity {
 	RecyclerView recyclerView;
 	RecyclerView.LayoutManager layoutManager;
 	RecyclerView.Adapter adapter;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
