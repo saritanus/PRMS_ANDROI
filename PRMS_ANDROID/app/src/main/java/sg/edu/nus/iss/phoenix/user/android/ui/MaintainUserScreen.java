@@ -1,6 +1,5 @@
 package sg.edu.nus.iss.phoenix.user.android.ui;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +7,9 @@ import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +17,7 @@ import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
-public class MaintainUserScreen extends AppCompatActivity implements View.OnClickListener {
+public class MaintainUserScreen extends AppCompatActivity {
 
 	// Tag for logging
 	private static final String TAG = MaintainUserScreen.class.getName();
@@ -33,7 +29,6 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 	private User userEdit = null;
 	private UserAdapter mRPAdapter;
 	KeyListener mUserNameEditTextKeyListener = null;
-	private int day,month,year;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +41,6 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		mUserJoiningDateText = (EditText) findViewById(R.id.user_joining_date);
 		// Keep the KeyListener for name EditText so as to enable editing after disabling it.
 		mUserNameEditTextKeyListener = mUserNameEditText.getKeyListener();
-		mUserJoiningDateText.setOnClickListener(this);
 	}
 
 	@Override
@@ -59,7 +53,6 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu options from the res/menu/menu_editor.xml file.
 		// This adds menu items to the app bar.
-
 		getMenuInflater().inflate(R.menu.menu_editor, menu);
 		return true;
 	}
@@ -142,27 +135,6 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 
 	}
 
-	@Override
-	public void onClick(View v) {
-		if (v == mUserJoiningDateText) {
-			final Calendar c = Calendar.getInstance();
-			day = c.get(Calendar.DAY_OF_MONTH);
-			month = c.get(Calendar.MONTH);
-			year = c.get(Calendar.YEAR);
-
-			DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-				@Override
-				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-					String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-					mUserJoiningDateText.setText(strDate);
-				}
-			}
-					, day, month, year);
-			datePickerDialog.updateDate(year, month, day);
-			datePickerDialog.show();
-
-		}
-	}
 }
 
 
