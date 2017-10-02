@@ -9,14 +9,7 @@
     android:padding="10dp">
 
 
-    <CheckBox
-        android:id="@+id/system_admin_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="System Administrator"
-        android:textColor="#ffffff"
-        android:textColorHint="#ffffff" />
+
 
     <TableLayout
         android:layout_width="match_parent"
@@ -29,6 +22,14 @@
             android:layout_height="wrap_content"
             android:text="Roles"
             tools:text="Roles:" />
+        <CheckBox
+            android:id="@+id/system_admin_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="System Administrator"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff" />
 
         <CheckBox
             android:id="@+id/presenter_checkbox"

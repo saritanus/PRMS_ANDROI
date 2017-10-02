@@ -25,6 +25,7 @@
         android:id="@+id/schedule_from_date"
         android:layout_width="200dp"
         android:textColorHint="#ffffff"
+        android:focusable="false"
         android:textColor="#ffffff"
         android:layout_height="wrap_content"
         android:hint="dd:mm:yy" />
@@ -45,6 +46,7 @@
             android:id="@+id/schedule_to_date"
             android:layout_width="200dp"
             android:textColor="#ffffff"
+            android:focusable="false"
             android:textColorHint="#ffffff"
             android:layout_height="wrap_content"
             android:hint="dd:mm:yy" />
