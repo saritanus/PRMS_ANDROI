@@ -59,7 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:hint="yy:mm:dd" />
+            android:focusable="false"
+            android:hint="yyyy:mm:dd"/>
 
         <TextView
             android:id="@+id/textView5"
