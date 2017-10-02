@@ -9,6 +9,15 @@
     android:padding="10dp">
 
 
+    <CheckBox
+        android:id="@+id/system_admin_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="System Administrator"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,28 +58,19 @@
             android:textColorHint="#ffffff"
             android:text="Station Manager" />
 
-        <CheckBox
-            android:id="@+id/system_admin_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff"
-            android:layout_marginTop="10dp"
-            android:text="System Administrator" />
-
-        <Button
-            android:id="@+id/btn_Create_Role"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="110dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="110dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_bg_round"
-            android:padding="15dp"
-            android:text="Create Role"
-            android:textColor="#d52d2c2c" />
-
     </TableLayout>
+
+    <Button
+        android:id="@+id/btn_Create_Role"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="110dp"
+        android:layout_marginRight="110dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/button_bg_round"
+        android:padding="15dp"
+        android:text="Create Role"
+        android:textColor="#d52d2c2c" />
 
 </LinearLayout>
