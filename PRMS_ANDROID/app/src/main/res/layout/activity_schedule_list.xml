@@ -28,7 +28,7 @@
         android:focusable="false"
         android:textColor="#ffffff"
         android:layout_height="wrap_content"
-        android:hint="dd:mm:yy" />
+        android:hint="yyyy-mm-dd" />
 </GridLayout>
     <GridLayout
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
             android:focusable="false"
             android:textColorHint="#ffffff"
             android:layout_height="wrap_content"
-            android:hint="dd:mm:yy" />
+            android:hint="yyyy-mm-dd" />
     </GridLayout>
 
 
