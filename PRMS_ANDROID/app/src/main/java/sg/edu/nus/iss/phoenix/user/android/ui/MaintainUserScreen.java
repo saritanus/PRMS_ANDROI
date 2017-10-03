@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
@@ -67,7 +66,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
-		// If this is a new radioprogram, hide the "Delete" menu item.
+		// If this is a new user, hide the "Delete" menu item.
 		if (userEdit == null) {
 			MenuItem menuItem = menu.findItem(R.id.action_delete);
 			menuItem.setVisible(false);
@@ -97,6 +96,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 					userEdit.setEmailID(mUserEmailEditText.getText().toString());
 					ControlFactory.getUserController().selectUpdateUser(userEdit);
 				}
+
 				return true;
 			// Respond to a click on the "Delete" menu option
 			case R.id.action_delete:
@@ -130,6 +130,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		if (us2edit != null) {
 			mUserNameEditText.setText(userEdit.getName(), TextView.BufferType.NORMAL);
 			mUserEmailEditText.setText(userEdit.getEmailID(), TextView.BufferType.EDITABLE);
+			//set date
 			mUserNameEditText.setKeyListener(null);
 		}
 	}
@@ -161,7 +162,9 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 			datePickerDialog.updateDate(year, month, day);
 			datePickerDialog.show();
 
+
 		}
+
 	}
 }
 
