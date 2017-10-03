@@ -5,5 +5,5 @@ public class DelegateHelper {
     public final static String PRMS_BASE_URL_AUTHENTICATE = "http://172.17.249.126:38783/phoenix/rest/Login/doLogin?";
     public final static String PRMS_BASE_URL_RADIO_PROGRAM = "172.17.249.126:38783/phoenix/rest/radioprogram";
     public final static String PRMS_BASE_URL_USER = "http://172.17.249.126:38783/phoenix/rest/user";
-    public final static String PRMS_BASE_URL_Schedule = "http://172.17.249.126:38783/phoenix/rest/Schedule";
+    public final static String PRMS_BASE_URL_SCHEDULE = "http://172.17.249.126:38783/phoenix/rest/schedule";
 }
