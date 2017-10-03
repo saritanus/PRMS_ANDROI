@@ -45,9 +45,10 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
 
 		JSONObject json = new JSONObject();
 		try {
-			json.put("name", params[0].getName());
+
 			json.put("emailID", params[0].getEmailID());
 			json.put("joiningDate",params[0].getJoiningDate());
+			json.put("name", params[0].getName());
 			json.put("password",params[0].getPassword());
 
 		} catch (JSONException e) {

@@ -72,11 +72,9 @@ public class UserController {
             maintainUserScreen.editUser(us2edit);
     }
 
-    public void selectUpdateUser(User us) { new UpdateUserDelegate(this).execute(us);
-    }
+    public void selectUpdateUser(User us) { new UpdateUserDelegate(this).execute(us);}
 
-    public void selectDeleteUser(User us) { new DeleteUserDelegate(this).execute(String.valueOf(us.getUserId()));
-    }
+    public void selectDeleteUser(User us) { new DeleteUserDelegate(this).execute(String.valueOf(us.getUserId()));}
 
     public void userDeleted(boolean success) {
         // Go back to UserList screen with refreshed users.

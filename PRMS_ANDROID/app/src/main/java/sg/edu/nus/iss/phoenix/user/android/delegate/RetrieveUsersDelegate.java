@@ -83,29 +83,29 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String>  {
 					String name = userJson.getString("name");
 					int userId = userJson.getInt("userId");
 					String emailID = userJson.getString("emailID");
+					//date
+					String joiningDate = userJson.getString("joiningDate");
+
+
 					User temp = new User();
 					temp.setName(name);
 					temp.setUserId(userId);
 					temp.setEmailID(emailID);
+					//date
+					temp.setJoiningDate(joiningDate);
 					users.add(temp);
 				}
 			} catch (JSONException e) {
 				Log.v(TAG, e.getMessage());
 			}
-		} else {
-			Log.v(TAG, "JSON response error.");
+
 		}
+		else { Log.v(TAG, "JSON response error.");}
 
 		if (userController != null)
 			userController.userRetrieved(users);
 			}
 
-
-
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
-
-
+	public void finalize() throws Throwable {super.finalize();}
 
 }//end RetrieveUsersDelegate

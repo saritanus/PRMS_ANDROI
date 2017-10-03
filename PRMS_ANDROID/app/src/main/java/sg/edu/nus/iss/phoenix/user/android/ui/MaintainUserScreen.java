@@ -28,10 +28,14 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 	private EditText mUserNameEditText;
 	private EditText mUserEmailEditText;
 	private EditText mUserJoiningDateText;
-	//private User selectedRP = null;
+
 	private User userEdit = null;
 	private UserAdapter mRPAdapter;
+
 	KeyListener mUserNameEditTextKeyListener = null;
+	//date
+	KeyListener mUserJoiningDateEditTextKeyListener = null;
+
 	private int day,month,year;
 
 	@Override
@@ -43,8 +47,11 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		mUserNameEditText = (EditText) findViewById(R.id.user_name);
 		mUserEmailEditText = (EditText) findViewById(R.id.user_email_id);
 		mUserJoiningDateText = (EditText) findViewById(R.id.user_joining_date);
+
 		// Keep the KeyListener for name EditText so as to enable editing after disabling it.
 		mUserNameEditTextKeyListener = mUserNameEditText.getKeyListener();
+
+		mUserJoiningDateEditTextKeyListener = mUserJoiningDateText.getKeyListener();
 		mUserJoiningDateText.setOnClickListener(this);
 	}
 
@@ -88,12 +95,15 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 					user.setEmailID(mUserEmailEditText.getText().toString());
 					user.setJoiningDate(mUserJoiningDateText.getText().toString());
 					user.setPassword("password");
+
 					ControlFactory.getUserController().selectCreateUser(user);
 				} else { // Edited.
 					Log.v(TAG, "Saving user program " + userEdit.getName() + "...");
 					userEdit.setUserId(userEdit.getUserId());
 					userEdit.setName(mUserNameEditText.getText().toString());
 					userEdit.setEmailID(mUserEmailEditText.getText().toString());
+					userEdit.setJoiningDate(mUserJoiningDateText.getText().toString());
+
 					ControlFactory.getUserController().selectUpdateUser(userEdit);
 				}
 
@@ -122,8 +132,12 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		this.userEdit = null;
 		mUserNameEditText.setText("", TextView.BufferType.EDITABLE);
 		mUserEmailEditText.setText("", TextView.BufferType.EDITABLE);
+		//Date
+		mUserJoiningDateText.setText("",TextView.BufferType.EDITABLE);
 		mUserNameEditText.setKeyListener(mUserNameEditTextKeyListener);
-	}
+
+		//date
+		mUserJoiningDateText.setKeyListener(mUserJoiningDateEditTextKeyListener);}
 
 	public void editUser(User us2edit) {
 		this.userEdit = us2edit;
@@ -131,6 +145,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 			mUserNameEditText.setText(userEdit.getName(), TextView.BufferType.NORMAL);
 			mUserEmailEditText.setText(userEdit.getEmailID(), TextView.BufferType.EDITABLE);
 			//set date
+			mUserJoiningDateText.setText(userEdit.getJoiningDate(),TextView.BufferType.EDITABLE);
 			mUserNameEditText.setKeyListener(null);
 		}
 	}

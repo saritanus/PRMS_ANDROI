@@ -2,7 +2,6 @@ package sg.edu.nus.iss.phoenix.user.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class User implements Cloneable, Serializable {
@@ -124,11 +123,13 @@ public class User implements Cloneable, Serializable {
     }
 
     public String getJoiningDate() {
-        return this.joiningDate;
     }
+        return this.joiningDate;}
+
     public void setJoiningDate(String joiningDateIn) {
         this.joiningDate = joiningDateIn;
     }
+
     public List<Role> getRoles()
     {
         return this.listRoles;
@@ -137,6 +138,7 @@ public class User implements Cloneable, Serializable {
     {
         this.listRoles = list;
     }
+
     public List<Integer> getRoleId()
     {
         return this.roleId;
