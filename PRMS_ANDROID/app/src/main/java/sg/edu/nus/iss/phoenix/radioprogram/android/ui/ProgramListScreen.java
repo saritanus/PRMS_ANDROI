@@ -1,15 +1,14 @@
 package sg.edu.nus.iss.phoenix.radioprogram.android.ui;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,9 +23,7 @@ public class ProgramListScreen extends AppCompatActivity {
     // Tag for logging
     private static final String TAG = ProgramListScreen.class.getName();
 
-    // private EditText mRPNameEditText;
-    // private EditText mRPDescEditText;
-    // private EditText mDurationEditText;
+
     private ListView mListView;
     private RadioProgramAdapter mRPAdapter;
     private RadioProgram selectedRP = null;
@@ -35,6 +32,7 @@ public class ProgramListScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program_list);
+
 
         ArrayList<RadioProgram> radioPrograms = new ArrayList<RadioProgram>();
         mRPAdapter = new RadioProgramAdapter(this, radioPrograms);

@@ -13,5 +13,4 @@ public class PhoenixUtil {
     private static final DateFormat dateTimeAMPMFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
     public static final DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
 
-
 }

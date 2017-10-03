@@ -1,15 +1,14 @@
 package sg.edu.nus.iss.phoenix.user.android.ui;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,16 +17,13 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 public class UserListScreen extends AppCompatActivity {
 	// Tag for logging
 	private static final String TAG = UserListScreen.class.getName();
 
-	// private EditText mRPNameEditText;
-	// private EditText mRPDescEditText;
-	// private EditText mDurationEditText;
+
 	private ListView mListView;
 	private UserAdapter mUserAdapter;
 	private User selectedUser = null;
@@ -92,11 +88,11 @@ public class UserListScreen extends AppCompatActivity {
 			case R.id.action_view:
 				if (selectedUser == null) {
 					// Prompt for the selection of a radio program.
-					Toast.makeText(this, "Select a radio program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
-					Log.v(TAG, "There is no selected radio program.");
+					Toast.makeText(this, "Select a user first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+					Log.v(TAG, "There is no selected user.");
 				}
 				else {
-					Log.v(TAG, "Viewing radio program: " + selectedUser.getName() + "...");
+					Log.v(TAG, "Viewing user : " + selectedUser.getName() + "...");
 					ControlFactory.getUserController().selectEditUser(selectedUser);
 				}
 		}
