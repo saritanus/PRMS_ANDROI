@@ -33,6 +33,7 @@ public class UserController {
         us2edit = null;
         Intent intent = new Intent(MainController.getApp(), UserListScreen.class);
         MainController.displayScreen(intent);
+
     }
 
         public void roleUseCase() {
