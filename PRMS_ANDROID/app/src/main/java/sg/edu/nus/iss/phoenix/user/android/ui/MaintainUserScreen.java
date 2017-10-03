@@ -28,14 +28,10 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 	private EditText mUserNameEditText;
 	private EditText mUserEmailEditText;
 	private EditText mUserJoiningDateText;
-
 	private User userEdit = null;
 	private UserAdapter mRPAdapter;
-
 	KeyListener mUserNameEditTextKeyListener = null;
-	//date
 	KeyListener mUserJoiningDateEditTextKeyListener = null;
-
 	private int day,month,year;
 
 	@Override
@@ -50,7 +46,6 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 
 		// Keep the KeyListener for name EditText so as to enable editing after disabling it.
 		mUserNameEditTextKeyListener = mUserNameEditText.getKeyListener();
-
 		mUserJoiningDateEditTextKeyListener = mUserJoiningDateText.getKeyListener();
 		mUserJoiningDateText.setOnClickListener(this);
 	}
@@ -87,16 +82,28 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		switch (item.getItemId()) {
 			// Respond to a click on the "Save" menu option
 			case R.id.action_save:
-				// Save radio program.
-				if (userEdit == null) { // Newly created.
-					Log.v(TAG, "Saving user " + mUserNameEditText.getText().toString() + "...");
-					User user = new User();
-					user.setName(mUserNameEditText.getText().toString());
-					user.setEmailID(mUserEmailEditText.getText().toString());
-					user.setJoiningDate(mUserJoiningDateText.getText().toString());
-					user.setPassword("password");
 
-					ControlFactory.getUserController().selectCreateUser(user);
+				//sujit code
+				// Save user.
+//				if (userEdit == null) { // Newly created.
+//					Log.v(TAG, "Saving user " + mUserNameEditText.getText().toString() + "...");
+//					User user = new User();
+//					user.setName(mUserNameEditText.getText().toString());
+//					user.setEmailID(mUserEmailEditText.getText().toString());
+//					user.setJoiningDate(mUserJoiningDateText.getText().toString());
+//					user.setPassword("password");
+
+				if (userEdit == null) {
+					// Newly created.
+					User u = new User(0,mUserNameEditText.getText().toString(),
+							mUserEmailEditText.getText().toString(),
+							mUserJoiningDateText.getText().toString());
+							ControlFactory.getUserController().selectCreateUser(u);
+
+
+					//old code
+					//ControlFactory.getUserController().selectCreateUser(user);
+
 				} else { // Edited.
 					Log.v(TAG, "Saving user program " + userEdit.getName() + "...");
 					userEdit.setUserId(userEdit.getUserId());
@@ -106,7 +113,6 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 
 					ControlFactory.getUserController().selectUpdateUser(userEdit);
 				}
-
 				return true;
 			// Respond to a click on the "Delete" menu option
 			case R.id.action_delete:
@@ -121,6 +127,16 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		}
 		return true;
 	}
+	void dummy(){
+		Log.v(TAG, "Saving user " + mUserNameEditText.getText().toString() + "...");
+		User user = new User();
+		user.setName(mUserNameEditText.getText().toString());
+		user.setEmailID(mUserEmailEditText.getText().toString());
+		user.setJoiningDate(mUserJoiningDateText.getText().toString());
+		user.setPassword("password");
+		ControlFactory.getUserController().selectCreateUser(user);
+	}
+
 
 	@Override
 	public void onBackPressed() {
@@ -132,19 +148,17 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		this.userEdit = null;
 		mUserNameEditText.setText("", TextView.BufferType.EDITABLE);
 		mUserEmailEditText.setText("", TextView.BufferType.EDITABLE);
-		//Date
 		mUserJoiningDateText.setText("",TextView.BufferType.EDITABLE);
 		mUserNameEditText.setKeyListener(mUserNameEditTextKeyListener);
-
-		//date
 		mUserJoiningDateText.setKeyListener(mUserJoiningDateEditTextKeyListener);}
+
 
 	public void editUser(User us2edit) {
 		this.userEdit = us2edit;
 		if (us2edit != null) {
+			/* edit user*/
 			mUserNameEditText.setText(userEdit.getName(), TextView.BufferType.NORMAL);
 			mUserEmailEditText.setText(userEdit.getEmailID(), TextView.BufferType.EDITABLE);
-			//set date
 			mUserJoiningDateText.setText(userEdit.getJoiningDate(),TextView.BufferType.EDITABLE);
 			mUserNameEditText.setKeyListener(null);
 		}
@@ -158,6 +172,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 
 	}
 
+	/* Date-picker to select user joining date*/
 	@Override
 	public void onClick(View v) {
 		if (v == mUserJoiningDateText) {

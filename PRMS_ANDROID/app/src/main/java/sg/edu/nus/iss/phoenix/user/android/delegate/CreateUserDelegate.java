@@ -7,8 +7,10 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,6 +28,7 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
 	// Tag for logging
 	private static final String TAG = CreateUserDelegate.class.getName();
 	private final UserController userController;
+	int createdUserID =0;
 
 	public CreateUserDelegate(UserController userController) {
 		this.userController = userController; }
@@ -70,7 +73,27 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
 			dos = new DataOutputStream(httpURLConnection.getOutputStream());
 			dos.writeUTF(json.toString());
 			dos.write(256);
+
+			//gcode
+			String resp;
+			String result=null;
 			Log.v(TAG, "Http PUT response " + httpURLConnection.getResponseCode());
+			Log.v(TAG, "Print the user id inserted" + httpURLConnection.getResponseMessage());
+			resp = httpURLConnection.getResponseMessage();
+			BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+			result = sb.toString();
+			Log.v(TAG,"Response string"+result);
+			this.createdUserID = Integer.parseInt(result);
+			Log.v(TAG,"Response created userID"+this.createdUserID);
+
+			//old code
+			//Log.v(TAG, "Http PUT response " + httpURLConnection.getResponseCode());
+
 			success = true;
 		} catch (IOException exception) {
 			Log.v(TAG, exception.getMessage());
@@ -90,7 +113,10 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
 
 	@Override
 	protected void onPostExecute(Boolean result) {
-		userController.userCreated(result.booleanValue());
+		userController.userCreated(this.createdUserID);
+
+		//old code
+		//userController.userCreated(result.booleanValue());
 	}
 	}
 
