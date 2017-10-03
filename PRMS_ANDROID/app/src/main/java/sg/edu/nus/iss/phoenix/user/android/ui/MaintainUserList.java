@@ -60,9 +60,9 @@ public class MaintainUserList extends AppCompatActivity{
 		mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-				// Log.v(TAG, "Radio program at position " + position + " selected.");
+				// Log.v(TAG, "User at position " + position + " selected.");
 				User user = (User) adapterView.getItemAtPosition(position);
-				// Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
+				// Log.v(TAG, "User name is " + rp.getRadioProgramName());
 				selectedUser = user;
 			}
 			@Override

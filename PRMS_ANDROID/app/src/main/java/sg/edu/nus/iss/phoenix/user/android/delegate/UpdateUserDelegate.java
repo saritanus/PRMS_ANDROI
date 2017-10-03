@@ -46,9 +46,10 @@ public class UpdateUserDelegate extends AsyncTask<User, Void, Boolean> {
         try {
 
 
-            //json.put("userid", params[0].getUserId());
+            json.put("userId", params[0].getUserId());
             json.put("emailID", params[0].getEmailID());
-            json.put("joiningDate", params[0].getJoiningDate());
+           // json.put("joiningDate", params[0].getJoiningDate());
+
             //json.put("name", params[0].getName());
 
         } catch (JSONException e) {
