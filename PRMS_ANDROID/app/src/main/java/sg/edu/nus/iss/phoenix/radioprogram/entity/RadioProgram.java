@@ -20,6 +20,10 @@ public class RadioProgram {
         this.radioProgramDuration = radioProgramDuration;
     }
 
+    public RadioProgram() {
+        
+    }
+
     public String getRadioProgramName() {
         return radioProgramName;
     }
