@@ -11,6 +11,7 @@ public class PhoenixUtil {
     private static int timeHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
     private static int timeMinute = Calendar.getInstance().get(Calendar.MINUTE);
     private static final DateFormat dateTimeAMPMFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+    public static final DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
 
 
 }

@@ -4,18 +4,26 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
 
 import sg.edu.nus.iss.phoenix.R;
+import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.user.entity.User;
 
 import static sg.edu.nus.iss.phoenix.R.id.fab;
 
@@ -24,19 +32,25 @@ import static sg.edu.nus.iss.phoenix.R.id.fab;
  * @version 1.0
  * @created 20-Sep-2017 1:01:59 AM
  */
-public class MaintainScheduleScreen extends Activity implements View.OnClickListener {
+public class MaintainScheduleScreen extends AppCompatActivity implements View.OnClickListener {
 
-	private EditText scheduleStartDate, scheduleStartTime;
+	private EditText scheduleStartDate, scheduleDuration, schedulePresenter,scheduleProducer,scheduleProgram;
 	private int fday, fmonth, fyear,hour, minute;
+	private ProgramSlot ps2edit = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_schedule);
-		scheduleStartDate = (EditText) findViewById(R.id.schedule_from_date);
-		scheduleStartTime = (EditText) findViewById(R.id.schedule_to_date);
+		schedulePresenter = (EditText) findViewById(R.id.edittext_presenter);
+		scheduleProgram = (EditText) findViewById(R.id.edittext_radioprogram);
+		scheduleProducer = (EditText) findViewById(R.id.edittext_producer);
+		scheduleStartDate = (EditText) findViewById(R.id.schedule_start_date);
+		scheduleDuration = (EditText) findViewById(R.id.schedule_duration);
 		scheduleStartDate.setOnClickListener(this);
-		scheduleStartTime.setOnClickListener(this);
+		scheduleDuration.setOnClickListener(this);
+
+
 	}
 
 	@Override
@@ -61,7 +75,7 @@ public class MaintainScheduleScreen extends Activity implements View.OnClickList
 
 		}
 
-		if (v == scheduleStartTime) {
+		if (v == scheduleDuration) {
 			final Calendar c = Calendar.getInstance();
 			hour = c.get(Calendar.HOUR_OF_DAY);
 			minute = c.get(Calendar.MINUTE);
@@ -69,7 +83,7 @@ public class MaintainScheduleScreen extends Activity implements View.OnClickList
 				@Override
 				public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-					scheduleStartTime.setText(hourOfDay + ":" + minute);
+					scheduleDuration.setText(hourOfDay + ":" + minute);
 				}
 			}
 					, hour, minute, false);
@@ -79,29 +93,105 @@ public class MaintainScheduleScreen extends Activity implements View.OnClickList
 
 
 	}
+	@Override
+	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		ControlFactory.getScheduleController().onDisplaySchdule(this);
+	}
+
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_card_demo, menu);
+		// Inflate the menu options from the res/menu/menu_editor.xml file.
+		// This adds menu items to the app bar.
+		getMenuInflater().inflate(R.menu.menu_editor, menu);
+		return true;
+	}
+
+	/**
+	 * This method is called after invalidateOptionsMenu(), so that the
+	 * menu can be updated (some menu items can be hidden or made visible).
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		// If this is a new radioprogram, hide the "Delete" menu item.
+		if (ps2edit == null) {
+			MenuItem menuItem = menu.findItem(R.id.action_delete);
+			menuItem.setVisible(false);
+		}
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
+		// User clicked on a menu option in the app bar overflow menu
+		switch (item.getItemId()) {
+			// Respond to a click on the "Save" menu option
+			case R.id.action_save:
+				// Save radio program.
 
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_copy) {
-			return true;
+				if (ps2edit == null) { // Newly created.
+				//	Log.v(TAG, "Saving Schedule Program " + schedulePresenter.getText().toString() + "...");
+					ProgramSlot ps = new ProgramSlot();
+					RadioProgram rp = new RadioProgram();
+					rp.setRadioProgramId(12);
+					ps.setRadioProgram(rp);
+					User presenter = new User();
+					presenter.setUserId(1);
+					User producer = new User();
+					presenter.setUserId(2);
+					ps.setPresenter(presenter);
+					ps.setProducer(producer);
+					ps.setDuration(scheduleDuration.getText().toString());
+					ps.setStartTime(scheduleStartDate.getText().toString());
+					ControlFactory.getScheduleController().selectCreateSchedule();
+				}
+				else { // Edited.
+				//	Log.v(TAG, "Saving radio program " + rp2edit.getRadioProgramId() + "...");
+				//	rp2edit.setRadioProgramDescription(mRPDescEditText.getText().toString());
+				//	rp2edit.setRadioProgramDuration(mDurationEditText.getText().toString());
+				//	ControlFactory.getProgramController().selectUpdateProgram(rp2edit);
+				}
+				return true;
+			// Respond to a click on the "Delete" menu option
+			case R.id.action_delete:
+			//	Log.v(TAG, "Deleting radio program " + ps2edit.getRadioProgramName() + "...");
+			//	ControlFactory.getProgramController().selectDeleteProgram(ps2edit);
+				return true;
+			// Respond to a click on the "Cancel" menu option
+			case R.id.action_cancel:
+			//	Log.v(TAG, "Canceling creating/editing radio program...");
+			//	ControlFactory.getProgramController().selectCancelCreateEditProgram();
+				return true;
 		}
 
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
+	@Override
+	public void onBackPressed() {
+	//	Log.v(TAG, "Canceling creating/editing radio program...");
+		ControlFactory.getProgramController().selectCancelCreateEditProgram();
+	}
+
+	public void createProgram() {
+//		this.rp2edit = null;
+//		mRPNameEditText.setText("", TextView.BufferType.EDITABLE);
+//		mRPDescEditText.setText("", TextView.BufferType.EDITABLE);
+//		mDurationEditText.setText("", TextView.BufferType.EDITABLE);
+//		mRPNameEditText.setKeyListener(mRPNameEditTextKeyListener);
+	}
+
+	public void editProgram(RadioProgram rp2edit) {
+		//this.rp2edit = rp2edit;
+		if (rp2edit != null) {
+//			mRPNameEditText.setText(rp2edit.getRadioProgramName(), TextView.BufferType.NORMAL);
+//			mRPDescEditText.setText(rp2edit.getRadioProgramDescription(), TextView.BufferType.EDITABLE);
+//			mDurationEditText.setText(rp2edit.getRadioProgramDuration(), TextView.BufferType.EDITABLE);
+//			mRPNameEditText.setKeyListener(null);
+		}
+	}
 }
-
-

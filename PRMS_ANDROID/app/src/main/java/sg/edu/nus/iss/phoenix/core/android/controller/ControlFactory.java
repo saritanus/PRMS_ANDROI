@@ -3,6 +3,7 @@ package sg.edu.nus.iss.phoenix.core.android.controller;
 import sg.edu.nus.iss.phoenix.authenticate.android.controller.LoginController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ReviewSelectProgramController;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ReviewSelectScheduledProgramController;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.user.android.controller.UserController;
 
@@ -11,9 +12,9 @@ public class ControlFactory {
     private static LoginController loginController = null;
     private static ProgramController programController = null;
     private static ReviewSelectProgramController reviewSelectProgramController = null;
+    private static ReviewSelectScheduledProgramController reviewSelectScheduledProgramController = null;
     private static UserController userController = null;
     private static ScheduleController scheduleController = null;
-    //private static ReviewSelectPresenterProducerController reviewSelectPresenterProducerController = null;
 
 
     public static MainController getMainController() {
@@ -45,8 +46,9 @@ public class ControlFactory {
         return reviewSelectProgramController;
     }
 
-   // public static ReviewSelectPresenterProducerController getReviewSelectPresenterProducerController() {
-     //   if (reviewSelectPresenterProducerController == null) reviewSelectPresenterProducerController = new ReviewSelectPresenterProducerController();
-       // return reviewSelectPresenterProducerController;
-    //}
-}
+    public static ReviewSelectScheduledProgramController getReviewSelectScheduledProgramController() {
+        if (reviewSelectScheduledProgramController == null) reviewSelectScheduledProgramController = new ReviewSelectScheduledProgramController();
+        return reviewSelectScheduledProgramController;
+    }
+
+   }

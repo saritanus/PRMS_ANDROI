@@ -1,144 +1,119 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.TimePicker;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
-import static sg.edu.nus.iss.phoenix.R.id.fab;
+public class ScheduleListScreen extends AppCompatActivity {
+	// Tag for logging
+	private static final String TAG = ScheduleListScreen.class.getName();
 
-/**
- * @author The Administrator
- * @version 1.0
- * @created 20-Sep-2017 1:01:59 AM
- */
-public class ScheduleListScreen extends AppCompatActivity implements View.OnClickListener {
-
-	private EditText scheduleFromDate, scheduleToDate;
-	private int fday, fmonth, fyear, tday, tmonth, tyear;
-	RecyclerView recyclerView;
-	RecyclerView.LayoutManager layoutManager;
-	RecyclerView.Adapter adapter;
-	private FloatingActionButton fabbtn;
-
+	// private EditText mRPNameEditText;
+	// private EditText mRPDescEditText;
+	// private EditText mDurationEditText;
+	private ListView mListView;
+	private ScheduleAdapter scheduleAdapter;
+	private ProgramSlot selectedPS = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_list);
-		// Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		// setSupportActionBar(toolbar);
-		scheduleFromDate = (EditText) findViewById(R.id.schedule_from_date);
-		scheduleToDate = (EditText) findViewById(R.id.schedule_to_date);
-		fabbtn = (FloatingActionButton) findViewById(fab);
-		scheduleFromDate.setOnClickListener(this);
-		scheduleToDate.setOnClickListener(this);
-		fabbtn.setOnClickListener(this);
 
-		recyclerView =
-				(RecyclerView) findViewById(R.id.recycler_view);
+		ArrayList<ProgramSlot> programSlots = new ArrayList<ProgramSlot>();
+		scheduleAdapter = new ScheduleAdapter(this, programSlots);
 
-		layoutManager = new LinearLayoutManager(this);
-		recyclerView.setLayoutManager(layoutManager);
+		// Setup FAB to open EditorActivity
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				ControlFactory.getScheduleController().selectCreateSchedule();
+			}
+		});
 
-		adapter = new ScheduleAdapter();
-		recyclerView.setAdapter(adapter);
-	}
+		mListView = (ListView) findViewById(R.id.schedule_list);
+		mListView.setAdapter(scheduleAdapter);
 
-
-
-
-
-
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
-	public void ScheduleListScreen(){
-
-	}
-
-	public void Activity(){
-
-	}
-
-	protected void onCreate(){
-
-	}
-
-	public void onDisplayScheduleList(){
-
-	}
-
-	protected void onPostCreate(){
-
-	}
-
-	public void selectViewProgramSlot(){
-
-	}
-
-	public void showProgramSlots(){
-
+		// Setup the item selection listener
+		mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+				// Log.v(TAG, "Radio program at position " + position + " selected.");
+				ProgramSlot ps = (ProgramSlot) adapterView.getItemAtPosition(position);
+				// Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
+				selectedPS = ps;
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				// your stuff
+			}
+		});
 	}
 
 	@Override
-	public void onClick(View v) {
-		if (v == scheduleFromDate) {
-			final Calendar c = Calendar.getInstance();
-			fday = c.get(Calendar.DAY_OF_MONTH);
-			fmonth = c.get(Calendar.MONTH);
-			fyear = c.get(Calendar.YEAR);
+	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		mListView.setSelection(0);
+		ControlFactory.getScheduleController().onDisplayScheduleList(this);
+	}
 
-			DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-				@Override
-				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-					String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-					scheduleFromDate.setText(strDate);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu options from the res/menu/menu_editor.xml file.
+		// This adds menu items to the app bar.
+		getMenuInflater().inflate(R.menu.menu_list, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// User clicked on a menu option in the app bar overflow menu
+		switch (item.getItemId()) {
+			// Respond to a click on the "View" menu option
+			case R.id.action_view:
+				if (selectedPS == null) {
+					// Prompt for the selection of a radio program.
+					Toast.makeText(this, "Select a radio program first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+					Log.v(TAG, "There is no selected radio program.");
 				}
-			}
-					, fday, fmonth, fyear);
-			datePickerDialog.updateDate(fyear, fmonth, fday);
-			datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-			datePickerDialog.show();
-
+				else {
+					Log.v(TAG, "Viewing radio program: " + selectedPS.getRadioProgram().getRadioProgramName());
+				//	ControlFactory.getProgramController().selectEditProgram(selectedPS);
+				}
 		}
 
-		if (v == scheduleToDate) {
-			final Calendar c = Calendar.getInstance();
-			tday = c.get(Calendar.DAY_OF_MONTH);
-			tmonth = c.get(Calendar.MONTH);
-			tyear = c.get(Calendar.YEAR);
+		return true;
+	}
 
-			DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-				@Override
-				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-					String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
-					scheduleToDate.setText(strDate);
-				}
-			}
-					, tday, tmonth, tyear);
-			datePickerDialog.updateDate(tyear, tmonth, tday);
-			datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-			datePickerDialog.show();
+	@Override
+	public void onBackPressed() {
+		ControlFactory.getProgramController().maintainedProgram();
+	}
 
-		}
-		if (v ==fabbtn ) {
-			//ControlFactory.getScheduleController().startCreateScheduleUseCase(this);
+	public void showSchedulePrograms(List<ProgramSlot> programSlots) {
+		scheduleAdapter.clear();
+		for (int i = 0; i < programSlots.size(); i++) {
+			scheduleAdapter.add(programSlots.get(i));
 		}
 	}
-}//end ScheduleListScreen
+}
+

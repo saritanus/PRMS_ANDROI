@@ -1,61 +1,95 @@
 package sg.edu.nus.iss.phoenix.schedule.android.controller;
 
+import android.content.Intent;
+import android.util.Log;
 
-/**
- * @author The Administrator
- * @version 1.0
- * @created 20-Sep-2017 1:01:59 AM
- */
+import java.util.List;
+
+
+import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
+import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
+import sg.edu.nus.iss.phoenix.schedule.android.ui.MaintainScheduleScreen;
+import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
+import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
+
 public class ScheduleController {
+	private static final String TAG = ScheduleController.class.getName();
 
-//	public ReviewSelectScheduledProgramController m_ReviewSelectScheduledProgramController;
-//	public MaintainScheduleScreen m_MaintainScheduleScreen;
+	private ScheduleListScreen scheduleListScreen;
+	private MaintainScheduleScreen maintainScheduleScreen;
 
-
-
-	public void finalize() throws Throwable {
-
-	}
-	public void ScheduleController(){
-
-	}
-
-	public void onDisplaySchedule(){
+	private ProgramSlot ps2edit = null;
+	public void startUseCase() {
+		ps2edit = null;
+		Intent intent = new Intent(MainController.getApp(), ScheduleListScreen.class);
+		MainController.displayScreen(intent);
 
 	}
 
-	public void onDisplayScheduleList(){
-
+	public void onDisplayScheduleList(ScheduleListScreen scheduleListScreen) {
+		this.scheduleListScreen = scheduleListScreen;
+		new RetrieveSchedulesDelegate(this).execute("all");
 	}
 
-	public void programSlotCreated(){
-
-	}
-
-	public void programSlotsRetrieved(){
-
-	}
-
-	public void selectCreateSchedule(){
-
-	}
-
-	//public void selectDeleteSchedule(){
-
-	//}
-
-	public void selectUpdateSchedule(){
-
-	}
-
-	//public void[] startUseCase(){
-
-	//}
-
-	public void startCreateScheduleUseCase(){
-
+	public void scheduleRetrieved(List<ProgramSlot> programSlots) {
+		scheduleListScreen.showSchedulePrograms(programSlots);
 	}
 
 
 
-}//end ScheduleController
+	public void selectCreateSchedule() {
+		ps2edit = null;
+		Intent intent = new Intent(MainController.getApp(), MaintainScheduleScreen.class);
+		MainController.displayScreen(intent);
+
+	}
+	public void onDisplaySchdule(MaintainScheduleScreen maintainScheduleScreen) {
+		this.maintainScheduleScreen = maintainScheduleScreen;
+		if (ps2edit == null)
+			maintainScheduleScreen.createSchedule();
+		else
+			maintainScheduleScreen.editSchedule(ps2edit);
+	}
+/*
+	public void selectEditUser(User users) {
+		us2edit = users;
+		Log.v(TAG, "Editing user name: " + users.getName() + "...");
+		Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
+		MainController.displayScreen(intent);
+	}
+
+
+
+	public void selectUpdateUser(User us) { new UpdateUserDelegate(this).execute(us);
+	}
+
+	public void selectDeleteUser(User us) { new DeleteUserDelegate(this).execute(String.valueOf(us.getUserId()));
+	}
+
+	public void userDeleted(boolean success) {
+		// Go back to UserList screen with refreshed users.
+		startUseCase(); }
+
+	public void userUpdated(boolean success) {
+		// Go back to UserList screen with refreshed users.
+		startUseCase(); }
+
+
+	public void selectCreateUser(User user) {
+		new CreateUserDelegate(this).execute(user);
+	}
+
+	public void userCreated(boolean success) {
+		// Go back to UserList screen with refreshed users.
+		startUseCase();
+	}
+
+	public void selectCancelCreateEditUser() {
+		// Go back to UserList screen with refreshed users.
+		startUseCase();}
+
+	public void maintainedUser() {
+		ControlFactory.getUserController().maintainedUser();
+	}
+*/
+}

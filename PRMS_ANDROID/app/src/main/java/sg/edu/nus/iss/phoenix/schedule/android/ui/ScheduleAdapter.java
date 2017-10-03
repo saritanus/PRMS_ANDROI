@@ -1,91 +1,63 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import sg.edu.nus.iss.phoenix.R;
+import sg.edu.nus.iss.phoenix.core.android.util.PhoenixUtil;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.user.entity.User;
 
-/**
- * Created by vimal on 29-Sep-17.
- */
+public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
 
-public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
+    public ScheduleAdapter(@NonNull Context context,  ArrayList<ProgramSlot> programSlots) {
+        super(context, 0, programSlots);
+    }
 
-
-    private String[] titles = {"schedule 1",
-            "Chapter Two",
-            "Chapter Three",
-            "Chapter Four",
-            "Chapter Five",
-            "Chapter Six",
-            "Chapter Seven",
-            "Chapter Eight"};
-
-    private String[] details = {"Item one details",
-            "Item two details", "Item three details",
-            "Item four details", "Item file details",
-            "Item six details", "Item seven details",
-            "Item eight details"};
-
-    private int[] images = { R.drawable.itunes,
-            R.drawable.itunes,
-            R.drawable.itunes,
-            R.drawable.itunes,
-            R.drawable.itunes,
-            R.drawable.itunes,
-            R.drawable.itunes,
-            R.drawable.itunes };
-
-
-    class ViewHolder extends RecyclerView.ViewHolder{
-
-        public int currentItem;
-        public ImageView itemImage;
-        public TextView itemTitle;
-        public TextView itemDetail;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            itemImage = (ImageView)itemView.findViewById(R.id.item_image);
-            itemTitle = (TextView)itemView.findViewById(R.id.item_title);
-            itemDetail =
-                    (TextView)itemView.findViewById(R.id.item_detail);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    int position = getAdapterPosition();
-
-                    Snackbar.make(v, "Click detected on item " + position,
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                }
-            });
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View listItemView = convertView;
+        if (listItemView == null) {
+            listItemView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.activity_create_schedule, parent, false);
         }
-    }
+        //    Word currentWord = getItem(position);
+        ProgramSlot programSlot = getItem(position);
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.card_layout, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
-    }
+        TextView radioProgramName = (TextView)listItemView.findViewById(R.id.edittext_radioprogram);
+        radioProgramName.setText(programSlot.getRadioProgram().getRadioProgramName(),TextView.BufferType.NORMAL);
+        radioProgramName.setKeyListener(null); // This disables editing.
 
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.itemTitle.setText(titles[i]);
-        viewHolder.itemDetail.setText(details[i]);
-        viewHolder.itemImage.setImageResource(images[i]);
-    }
+        TextView presenter = (TextView) listItemView.findViewById(R.id.edittext_presenter);
+        presenter.setText(programSlot.getPresenter().getName(), TextView.BufferType.NORMAL);
+        presenter.setKeyListener(null);
 
-    @Override
-    public int getItemCount() {
-        return titles.length;
+        TextView producer = (TextView) listItemView.findViewById(R.id.edittext_producer);
+        producer.setText(programSlot.getProducer().getName(), TextView.BufferType.NORMAL);
+        producer.setKeyListener(null);
+
+        TextView scheduleStartDate = (TextView) listItemView.findViewById(R.id.schedule_start_date);
+        scheduleStartDate.setText(programSlot.getStartTime(), TextView.BufferType.NORMAL);
+        scheduleStartDate.setKeyListener(null);
+
+        TextView duartion = (TextView) listItemView.findViewById(R.id.schedule_duration);
+        duartion.setText(programSlot.getDuration(), TextView.BufferType.NORMAL);
+        producer.setKeyListener(null);
+
+
+
+        return listItemView;
     }
 }

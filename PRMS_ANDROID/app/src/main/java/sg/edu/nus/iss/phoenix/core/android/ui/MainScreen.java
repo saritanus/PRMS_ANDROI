@@ -41,8 +41,8 @@ public class MainScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
              //   ControlFactory.getMainController().selectMaintainSchedule();
-                Intent iinent= new Intent(MainScreen.this,ScheduleListScreen.class);
-                startActivity(iinent);
+                Intent scheduleIntent= new Intent(MainScreen.this,ScheduleListScreen.class);
+                startActivity(scheduleIntent);
             }
 
         });
