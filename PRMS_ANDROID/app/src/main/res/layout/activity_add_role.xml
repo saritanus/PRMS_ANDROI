@@ -58,20 +58,21 @@
             android:textColor="#ffffff"
             android:textColorHint="#ffffff"
             android:text="Station Manager" />
+        <Button
+            android:id="@+id/btn_Create_Role"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="110dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/button_bg_round"
+            android:padding="15dp"
+            android:text="Create Role"
+            android:textColor="#d52d2c2c" />
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/btn_Create_Role"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="110dp"
-        android:layout_marginRight="110dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/button_bg_round"
-        android:padding="15dp"
-        android:text="Create Role"
-        android:textColor="#d52d2c2c" />
+
 
 </LinearLayout>

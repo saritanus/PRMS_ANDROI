@@ -123,7 +123,6 @@ public class User implements Cloneable, Serializable {
     }
 
     public String getJoiningDate() {
-    }
         return this.joiningDate;}
 
     public void setJoiningDate(String joiningDateIn) {

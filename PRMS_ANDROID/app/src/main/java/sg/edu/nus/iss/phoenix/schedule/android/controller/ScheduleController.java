@@ -51,4 +51,11 @@ public class ScheduleController {
 	//public void[] startUseCase(){
 
 	//}
+
+	public void startCreateScheduleUseCase(){
+
+	}
+
+
+
 }//end ScheduleController
