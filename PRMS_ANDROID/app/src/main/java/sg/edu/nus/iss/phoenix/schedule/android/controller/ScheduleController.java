@@ -45,10 +45,10 @@ public class ScheduleController {
 	}
 	public void onDisplaySchdule(MaintainScheduleScreen maintainScheduleScreen) {
 		this.maintainScheduleScreen = maintainScheduleScreen;
-		if (ps2edit == null)
-			maintainScheduleScreen.createSchedule();
-		else
-			maintainScheduleScreen.editSchedule(ps2edit);
+		//if (ps2edit == null)
+		//	maintainScheduleScreen.createSchedule();
+		//else
+		//	maintainScheduleScreen.editSchedule(ps2edit);
 	}
 /*
 	public void selectEditUser(User users) {

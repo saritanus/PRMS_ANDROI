@@ -42,7 +42,11 @@ public class AssignRoleDelegate extends AsyncTask<User, Void, Boolean> {
 
 		JSONObject json = new JSONObject();
 		try {
-			JSONArray roleId = new JSONArray(params[0].getRoleId());
+			JSONArray roleId = new JSONArray();
+			for ( int role : params[0].getRoleId())
+			{
+				roleId.put(role);
+			}
 			json.put("userId", params[0].getUserId());
 			Log.v(TAG, "UserID parsing:" + params[0].getUserId() + "...");
 			json.put("roleId",roleId);

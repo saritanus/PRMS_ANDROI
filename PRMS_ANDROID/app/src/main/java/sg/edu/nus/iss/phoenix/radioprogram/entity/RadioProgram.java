@@ -3,6 +3,11 @@ package sg.edu.nus.iss.phoenix.radioprogram.entity;
 public class RadioProgram {
 
     private int radioProgramId;
+
+    public void setRadioProgramName(String radioProgramName) {
+        this.radioProgramName = radioProgramName;
+    }
+
     private String radioProgramName;
     private String radioProgramDescription;
     private String radioProgramDuration;
@@ -21,7 +26,7 @@ public class RadioProgram {
     }
 
     public RadioProgram() {
-        
+
     }
 
     public String getRadioProgramName() {

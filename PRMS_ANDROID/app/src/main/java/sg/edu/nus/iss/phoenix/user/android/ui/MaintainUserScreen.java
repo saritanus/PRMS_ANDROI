@@ -28,6 +28,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 	private EditText mUserNameEditText;
 	private EditText mUserEmailEditText;
 	private EditText mUserJoiningDateText;
+	private EditText mUserPasswordText;
 	private User userEdit = null;
 	private UserAdapter mRPAdapter;
 	KeyListener mUserNameEditTextKeyListener = null;
@@ -43,6 +44,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		mUserNameEditText = (EditText) findViewById(R.id.user_name);
 		mUserEmailEditText = (EditText) findViewById(R.id.user_email_id);
 		mUserJoiningDateText = (EditText) findViewById(R.id.user_joining_date);
+		mUserPasswordText = (EditText) findViewById(R.id.passworduser);
 
 		// Keep the KeyListener for name EditText so as to enable editing after disabling it.
 		mUserNameEditTextKeyListener = mUserNameEditText.getKeyListener();
@@ -96,8 +98,10 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 				if (userEdit == null) {
 					// Newly created.
 					User u = new User(0,mUserNameEditText.getText().toString(),
+							mUserPasswordText.getText().toString(),
 							mUserEmailEditText.getText().toString(),
-							mUserJoiningDateText.getText().toString());
+							mUserJoiningDateText.getText().toString()
+							);
 							ControlFactory.getUserController().selectCreateUser(u);
 
 
@@ -133,7 +137,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 		user.setName(mUserNameEditText.getText().toString());
 		user.setEmailID(mUserEmailEditText.getText().toString());
 		user.setJoiningDate(mUserJoiningDateText.getText().toString());
-		user.setPassword("password");
+		user.setPassword(mUserPasswordText.getText().toString());
 		ControlFactory.getUserController().selectCreateUser(user);
 	}
 
@@ -184,6 +188,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 			DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 				@Override
 				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+					if(dayOfMonth < 10){dayOfMonth = '0'+dayOfMonth;}
 					String strDate = year + "-" + (month + 1) + "-" + dayOfMonth;
 					mUserJoiningDateText.setText(strDate);
 				}
