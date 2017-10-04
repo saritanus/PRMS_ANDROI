@@ -85,18 +85,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 			// Respond to a click on the "Save" menu option
 			case R.id.action_save:
 
-				//sujit code
-				// Save user.
-//				if (userEdit == null) { // Newly created.
-//					Log.v(TAG, "Saving user " + mUserNameEditText.getText().toString() + "...");
-//					User user = new User();
-//					user.setName(mUserNameEditText.getText().toString());
-//					user.setEmailID(mUserEmailEditText.getText().toString());
-//					user.setJoiningDate(mUserJoiningDateText.getText().toString());
-//					user.setPassword("password");
-
 				if (userEdit == null) {
-					// Newly created.
 					User u = new User(0,mUserNameEditText.getText().toString(),
 							mUserPasswordText.getText().toString(),
 							mUserEmailEditText.getText().toString(),
@@ -104,9 +93,6 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 							);
 							ControlFactory.getUserController().selectCreateUser(u);
 
-
-					//old code
-					//ControlFactory.getUserController().selectCreateUser(user);
 
 				} else { // Edited.
 					Log.v(TAG, "Saving user program " + userEdit.getName() + "...");
