@@ -98,6 +98,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 					Log.v(TAG, "Saving user program " + userEdit.getName() + "...");
 					userEdit.setUserId(userEdit.getUserId());
 					userEdit.setName(mUserNameEditText.getText().toString());
+					userEdit.setPassword(mUserPasswordText.getText().toString());
 					userEdit.setEmailID(mUserEmailEditText.getText().toString());
 					userEdit.setJoiningDate(mUserJoiningDateText.getText().toString());
 
@@ -151,6 +152,7 @@ public class MaintainUserScreen extends AppCompatActivity implements View.OnClic
 			mUserEmailEditText.setText(userEdit.getEmailID(), TextView.BufferType.EDITABLE);
 			mUserJoiningDateText.setText(userEdit.getJoiningDate(),TextView.BufferType.EDITABLE);
 			mUserNameEditText.setKeyListener(null);
+			mUserJoiningDateText.setKeyListener(mUserJoiningDateEditTextKeyListener);
 		}
 	}
 

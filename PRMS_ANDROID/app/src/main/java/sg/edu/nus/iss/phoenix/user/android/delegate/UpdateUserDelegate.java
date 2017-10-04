@@ -49,6 +49,7 @@ public class UpdateUserDelegate extends AsyncTask<User, Void, Boolean> {
             json.put("userId", params[0].getUserId());
             json.put("emailID", params[0].getEmailID());
             json.put("joiningDate", params[0].getJoiningDate());
+            json.put("password",params[0].getPassword());
 
             //json.put("name", params[0].getName());
 
@@ -68,6 +69,7 @@ public class UpdateUserDelegate extends AsyncTask<User, Void, Boolean> {
             httpURLConnection.setDoOutput(true);
             dos = new DataOutputStream(httpURLConnection.getOutputStream());
             dos.writeUTF(json.toString());
+            Log.v(TAG, "The JSON Data is"+json.toString());
             dos.write(512);
             Log.v(TAG, "Http POST response " + httpURLConnection.getResponseCode());
             success = true;
