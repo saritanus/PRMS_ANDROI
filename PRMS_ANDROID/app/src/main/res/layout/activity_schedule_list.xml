@@ -18,7 +18,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="7"
-                    android:text="Rrom Date:"
+                    android:text="From Date:"
                     android:textColor="#ffffff"
                     android:textSize="20dp" />
 
@@ -26,8 +26,8 @@
                     android:id="@+id/schedule_from_date"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:focusable="false"
                     android:hint="yyyy:mm:dd"
+                    android:focusable="false"
                     android:textColor="#ffffff" />
         </GridLayout>
         <GridLayout
@@ -58,12 +58,13 @@
             android:layout_marginTop="100dp">
 
                 <Button
-                    android:id="@+id/btnSearch"
+                    android:id="@+id/schedule_btn_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#af236056"
                     android:textSize="20dp"
                     android:text="Search"
+                    android:onClick="onClick"
                     android:textColor="#94ffffff" />
         </GridLayout>
         <TableLayout

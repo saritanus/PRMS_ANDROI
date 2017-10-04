@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,20 +26,25 @@ public class ScheduleListScreen extends AppCompatActivity {
 	// Tag for logging
 	private static final String TAG = ScheduleListScreen.class.getName();
 
-	// private EditText mRPNameEditText;
-	// private EditText mRPDescEditText;
-	// private EditText mDurationEditText;
+	private Button searchButton;
+	private EditText fromDate;
+	private EditText toDate;
 	private ListView mListView;
 	private ScheduleAdapter scheduleAdapter;
 	private ProgramSlot selectedPS = null;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_list);
+		fromDate = (EditText) findViewById(R.id.schedule_from_date);
+		toDate = (EditText) findViewById(R.id.schedule_to_date);
+		searchButton = (Button) findViewById(R.id.schedule_btn_search);
 
 		ArrayList<ProgramSlot> programSlots = new ArrayList<ProgramSlot>();
 		scheduleAdapter = new ScheduleAdapter(this, programSlots);
+		//searchButton.setOnClickListener();
 
 		// Setup FAB to open EditorActivity
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

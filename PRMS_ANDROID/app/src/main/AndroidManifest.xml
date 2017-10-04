@@ -52,5 +52,5 @@
         <activity android:name=".user.android.ui.SelectRoleScreen" />
         <activity android:name=".schedule.android.ui.MaintainScheduleScreen" />
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
+import sg.edu.nus.iss.phoenix.schedule.android.delegate.CreateScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.MaintainScheduleScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
@@ -43,53 +44,20 @@ public class ScheduleController {
 		MainController.displayScreen(intent);
 
 	}
-	public void onDisplaySchdule(MaintainScheduleScreen maintainScheduleScreen) {
+
+	public void selectCreateSchedule(ProgramSlot programSlot) {
+		new CreateScheduleDelegate(this).execute(programSlot);
+	}
+	public void onDisplaySchedule(MaintainScheduleScreen maintainScheduleScreen) {
 		this.maintainScheduleScreen = maintainScheduleScreen;
-		//if (ps2edit == null)
-		//	maintainScheduleScreen.createSchedule();
-		//else
-		//	maintainScheduleScreen.editSchedule(ps2edit);
-	}
-/*
-	public void selectEditUser(User users) {
-		us2edit = users;
-		Log.v(TAG, "Editing user name: " + users.getName() + "...");
-		Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
-		MainController.displayScreen(intent);
+		if (ps2edit == null)
+			maintainScheduleScreen.createSchedule();
+		else
+			maintainScheduleScreen.editSchedule(ps2edit);
 	}
 
-
-
-	public void selectUpdateUser(User us) { new UpdateUserDelegate(this).execute(us);
-	}
-
-	public void selectDeleteUser(User us) { new DeleteUserDelegate(this).execute(String.valueOf(us.getUserId()));
-	}
-
-	public void userDeleted(boolean success) {
-		// Go back to UserList screen with refreshed users.
-		startUseCase(); }
-
-	public void userUpdated(boolean success) {
-		// Go back to UserList screen with refreshed users.
-		startUseCase(); }
-
-
-	public void selectCreateUser(User user) {
-		new CreateUserDelegate(this).execute(user);
-	}
-
-	public void userCreated(boolean success) {
-		// Go back to UserList screen with refreshed users.
+	public void scheduleCreated(boolean success) {
+		// Go back to ProgramList screen with refreshed programs.
 		startUseCase();
 	}
-
-	public void selectCancelCreateEditUser() {
-		// Go back to UserList screen with refreshed users.
-		startUseCase();}
-
-	public void maintainedUser() {
-		ControlFactory.getUserController().maintainedUser();
-	}
-*/
 }

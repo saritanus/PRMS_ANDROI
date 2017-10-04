@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,13 +44,34 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
 		}
 
 		JSONObject json = new JSONObject();
-		/*try {
-			json.put("name", params[0].getRadioProgramName());
-			json.put("description", params[0].getRadioProgramDescription());
-			json.put("typicalDuration", params[0].getRadioProgramDuration());
+		try {
+			json.put("startTime", params[0].getStartTime());
+			json.put("duration", params[0].getDuration());
+
+			//Setting the value of Presenter
+			JSONArray arrayPresenter = new JSONArray();
+			JSONObject arrayElementPresenter = new JSONObject();
+			arrayElementPresenter.put("name",params[0].getPresenter().getName());
+			arrayPresenter.put(arrayElementPresenter);
+			json.put("presenter",arrayPresenter);
+
+			//Setting the value of Producer
+			JSONArray arrayProducer = new JSONArray();
+			JSONObject arrayElementProducer = new JSONObject();
+			arrayElementProducer.put("name",params[0].getProducer().getName());
+			arrayProducer.put(arrayElementProducer);
+			json.put("producer",arrayProducer);
+
+			//Setting the value of Radio Program
+			JSONArray arrayRadioProgram = new JSONArray();
+			JSONObject arrayElementRadioProgram = new JSONObject();
+			arrayElementRadioProgram.put("name",params[0].getRadioProgram().getRadioProgramName());
+			arrayRadioProgram.put(arrayElementRadioProgram);
+			json.put("radioProgram",arrayRadioProgram);
+
 		} catch (JSONException e) {
 			Log.v(TAG, e.getMessage());
-		}*/
+		}
 
 		boolean success = false;
 		HttpURLConnection httpURLConnection = null;
@@ -82,8 +104,9 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
 		return new Boolean(success);
 	}
 
+
 	@Override
 	protected void onPostExecute(Boolean result) {
-	//	sc.programCreated(result.booleanValue());
+		scheduleController.scheduleCreated(result.booleanValue());
 	}
 }

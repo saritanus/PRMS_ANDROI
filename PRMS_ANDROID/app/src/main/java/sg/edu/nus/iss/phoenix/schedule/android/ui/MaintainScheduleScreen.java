@@ -34,7 +34,9 @@ import static sg.edu.nus.iss.phoenix.R.id.fab;
  */
 public class MaintainScheduleScreen extends AppCompatActivity implements View.OnClickListener {
 
-	private EditText scheduleStartDate, scheduleDuration, schedulePresenter,scheduleProducer,scheduleProgram;
+	private static final String TAG =MaintainScheduleScreen.class.getName(); ;
+	private EditText scheduleStartDate,scheduleStartTime, scheduleDuration;
+	private EditText schedulePresenter,scheduleProducer,scheduleProgram;
 	private int fday, fmonth, fyear,hour, minute;
 	private ProgramSlot ps2edit = null;
 
@@ -47,8 +49,9 @@ public class MaintainScheduleScreen extends AppCompatActivity implements View.On
 		scheduleProducer = (EditText) findViewById(R.id.edittext_producer);
 		scheduleStartDate = (EditText) findViewById(R.id.schedule_start_date);
 		scheduleDuration = (EditText) findViewById(R.id.schedule_duration);
+		scheduleStartTime = (EditText) findViewById(R.id.schedule_startTime);
 		scheduleStartDate.setOnClickListener(this);
-		scheduleDuration.setOnClickListener(this);
+		scheduleStartTime.setOnClickListener(this);
 
 
 	}
@@ -64,7 +67,11 @@ public class MaintainScheduleScreen extends AppCompatActivity implements View.On
 			DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 				@Override
 				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-					String strDate = dayOfMonth + "-" + (month + 1) + "-" + year;
+					String temp = "0";
+					if(dayOfMonth < 10){temp = temp+String.valueOf(dayOfMonth);}
+					else
+						temp = String.valueOf(dayOfMonth);
+					String strDate = temp + "-" + (month + 1) + "-" + year;
 					scheduleStartDate.setText(strDate);
 				}
 			}
@@ -75,7 +82,7 @@ public class MaintainScheduleScreen extends AppCompatActivity implements View.On
 
 		}
 
-		if (v == scheduleDuration) {
+		if (v == scheduleStartTime) {
 			final Calendar c = Calendar.getInstance();
 			hour = c.get(Calendar.HOUR_OF_DAY);
 			minute = c.get(Calendar.MINUTE);
@@ -83,7 +90,7 @@ public class MaintainScheduleScreen extends AppCompatActivity implements View.On
 				@Override
 				public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-					scheduleDuration.setText(hourOfDay + ":" + minute);
+					scheduleStartTime.setText(hourOfDay + ":" + minute+":00");
 				}
 			}
 					, hour, minute, false);
@@ -96,7 +103,7 @@ public class MaintainScheduleScreen extends AppCompatActivity implements View.On
 	@Override
 	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		ControlFactory.getScheduleController().onDisplaySchdule(this);
+		ControlFactory.getScheduleController().onDisplaySchedule(this);
 	}
 
 
@@ -134,20 +141,20 @@ public class MaintainScheduleScreen extends AppCompatActivity implements View.On
 				// Save radio program.
 
 				if (ps2edit == null) { // Newly created.
-				//	Log.v(TAG, "Saving Schedule Program " + schedulePresenter.getText().toString() + "...");
-					ProgramSlot ps = new ProgramSlot();
+					Log.v(TAG, "Saving Schedule Program " + scheduleProgram.getText().toString() + "...");
+					ProgramSlot ps2edit = new ProgramSlot();
 					RadioProgram rp = new RadioProgram();
-					rp.setRadioProgramId(12);
-					ps.setRadioProgram(rp);
+					rp.setRadioProgramName(scheduleProgram.getText().toString());
+					ps2edit.setRadioProgram(rp);
 					User presenter = new User();
-					presenter.setUserId(1);
+					presenter.setName(schedulePresenter.getText().toString());
+					ps2edit.setPresenter(presenter);
 					User producer = new User();
-					presenter.setUserId(2);
-					ps.setPresenter(presenter);
-					ps.setProducer(producer);
-					ps.setDuration(scheduleDuration.getText().toString());
-					ps.setStartTime(scheduleStartDate.getText().toString());
-					ControlFactory.getScheduleController().selectCreateSchedule();
+					producer.setName(scheduleProducer.getText().toString());
+					ps2edit.setProducer(producer);
+					ps2edit.setDuration(scheduleDuration.getText().toString());
+					ps2edit.setStartTime(scheduleStartDate.getText().toString()+" "+scheduleStartTime.getText().toString());
+					ControlFactory.getScheduleController().selectCreateSchedule(ps2edit);
 				}
 				else { // Edited.
 				//	Log.v(TAG, "Saving radio program " + rp2edit.getRadioProgramId() + "...");
@@ -177,20 +184,29 @@ public class MaintainScheduleScreen extends AppCompatActivity implements View.On
 		ControlFactory.getProgramController().selectCancelCreateEditProgram();
 	}
 
-	public void createProgram() {
-//		this.rp2edit = null;
-//		mRPNameEditText.setText("", TextView.BufferType.EDITABLE);
-//		mRPDescEditText.setText("", TextView.BufferType.EDITABLE);
-//		mDurationEditText.setText("", TextView.BufferType.EDITABLE);
-//		mRPNameEditText.setKeyListener(mRPNameEditTextKeyListener);
+	public void createSchedule() {
+		this.ps2edit = null;
+
+		schedulePresenter.setText("", TextView.BufferType.EDITABLE);
+		scheduleProgram.setText("", TextView.BufferType.EDITABLE);
+		scheduleProducer.setText("", TextView.BufferType.EDITABLE);
+		scheduleStartDate.setOnClickListener(this);
+		scheduleDuration.setOnClickListener(this);
+		scheduleStartTime.setText("", TextView.BufferType.EDITABLE);
+
 	}
 
-	public void editProgram(RadioProgram rp2edit) {
-		//this.rp2edit = rp2edit;
-		if (rp2edit != null) {
-//			mRPNameEditText.setText(rp2edit.getRadioProgramName(), TextView.BufferType.NORMAL);
-//			mRPDescEditText.setText(rp2edit.getRadioProgramDescription(), TextView.BufferType.EDITABLE);
-//			mDurationEditText.setText(rp2edit.getRadioProgramDuration(), TextView.BufferType.EDITABLE);
+	public void editSchedule(ProgramSlot ps2edit) {
+		this.ps2edit = ps2edit;
+		if (ps2edit != null) {
+			schedulePresenter.setText(ps2edit.getPresenter().getName(), TextView.BufferType.EDITABLE);
+			scheduleProgram.setText(ps2edit.getRadioProgram().getRadioProgramName(), TextView.BufferType.EDITABLE);
+			scheduleProducer.setText(ps2edit.getProducer().getName(), TextView.BufferType.EDITABLE);
+			scheduleStartDate.setText(ps2edit.getStartTime(),TextView.BufferType.EDITABLE);
+			scheduleStartTime.setText(ps2edit.getStartTime(), TextView.BufferType.EDITABLE);
+			scheduleStartDate.setOnClickListener(this);
+			scheduleDuration.setOnClickListener(this);
+
 //			mRPNameEditText.setKeyListener(null);
 		}
 	}

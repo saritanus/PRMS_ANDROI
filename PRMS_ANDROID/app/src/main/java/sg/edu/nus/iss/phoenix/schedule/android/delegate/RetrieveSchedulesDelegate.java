@@ -103,7 +103,6 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
                     programSlot.setPresenter(new User(presenter.getInt("userId"),presenter.getString("name")));
                     programSlot.setProducer(new User(producer.getInt("userId"),producer.getString("name")));
                     programSlot.setStartTime(psJson.getString("startTime"));
-                    programSlot.setEndTime(psJson.getString("endTime"));
                     programSlots.add(programSlot);
                 }
             } catch (JSONException e) {
