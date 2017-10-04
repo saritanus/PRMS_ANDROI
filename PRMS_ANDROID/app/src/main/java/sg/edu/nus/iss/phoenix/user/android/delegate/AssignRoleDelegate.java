@@ -23,15 +23,25 @@ public class AssignRoleDelegate extends AsyncTask<User, Void, Boolean> {
 	// Tag for logging
 	private static final String TAG = AssignRoleDelegate.class.getName();
 	private final UserController userController;
+	int edit;
 
-	public AssignRoleDelegate(UserController userController) {
-		this.userController = userController; }
+//	public AssignRoleDelegate(UserController userController) {
+//		this.userController = userController; }
+
+	public AssignRoleDelegate(UserController userController,int editIn) {
+		this.userController = userController;
+		this.edit = editIn;
+	}
 
 	@Override
 	protected Boolean doInBackground(User... params) {
 		Uri builtUri = Uri.parse(PRMS_BASE_URL_USER).buildUpon().build();
-		builtUri = Uri.withAppendedPath(builtUri, "assignrole").buildUpon().build();
-		Log.v(TAG, builtUri.toString());
+		if (edit == 0) {
+			builtUri = Uri.withAppendedPath(builtUri, "assignrole").buildUpon().build();
+		} else {
+			builtUri = Uri.withAppendedPath(builtUri, "updaterole").buildUpon().build();
+		}
+			Log.v(TAG, builtUri.toString());
 		URL url = null;
 		try {
 			url = new URL(builtUri.toString());
@@ -64,7 +74,11 @@ public class AssignRoleDelegate extends AsyncTask<User, Void, Boolean> {
 		try {
 			httpURLConnection = (HttpURLConnection) url.openConnection();
 			httpURLConnection.setInstanceFollowRedirects(false);
-			httpURLConnection.setRequestMethod("PUT");
+			if ( edit == 0) {
+				httpURLConnection.setRequestMethod("PUT");
+			} else {
+				httpURLConnection.setRequestMethod("POST");
+			}
 			httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
 			httpURLConnection.setDoInput(true);
 			httpURLConnection.setDoOutput(true);

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,10 +45,10 @@ public int systemadmin, presenter, producer, stationmanager;
     @Override
     public void onClick(View v) {
         if (v == btnCreateRole)
-            if (systemAdminCheckbox.isChecked()) {
-                listRoles.add(1);
-                Log.v(TAG, "Selecting the list of roles admin: " + listRoles + "...");
-            }
+        {}
+        if (systemAdminCheckbox.isChecked()) {
+            listRoles.add(1);
+        }
         if (presenterCheckbox.isChecked()) {
             listRoles.add(3);
         }
@@ -57,6 +58,8 @@ public int systemadmin, presenter, producer, stationmanager;
         if (stationManagerCheckbox.isChecked()) {
             listRoles.add(2);
         }
+
+
         Log.v(TAG, "Selecting the list of roles: " + listRoles + "...");
         ControlFactory.getUserController().rolesSelected(listRoles);
 

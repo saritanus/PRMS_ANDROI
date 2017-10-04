@@ -31,6 +31,7 @@ public class UserController {
     private MaintainUserScreen maintainUserScreen;
     private SelectRoleScreen selectRoleScreen;
     private User us2edit = null;
+    int edit = 0;
 
     //Gcode
     private ArrayList<Role> roles;
@@ -67,9 +68,12 @@ public class UserController {
         roles = null;
         Intent intent = new Intent(MainController.getApp(), SelectRoleScreen.class);
         MainController.displayScreen(intent);}
+
+
     public void rolesSelected(ArrayList<Integer> roles){
         us2edit.setRoleId(roles);
-        new AssignRoleDelegate(this).execute(us2edit);}
+        new AssignRoleDelegate(this, edit).execute(us2edit);
+    }
 
     /* selectEditUser enables editing user name and refresh back to userlist screen*/
     public void selectEditUser(User users) {
@@ -87,7 +91,10 @@ public class UserController {
             maintainUserScreen.editUser(us2edit);
     }
 
-    public void selectUpdateUser(User us) { new UpdateUserDelegate(this).execute(us);}
+    public void selectUpdateUser(User us) {
+        us2edit = us;
+        new UpdateUserDelegate(this).execute(us2edit);
+    }
 
     public void selectDeleteUser(User us) { new DeleteUserDelegate(this).execute(String.valueOf(us.getUserId()));}
 
@@ -97,7 +104,8 @@ public class UserController {
 
     public void userUpdated(boolean success) {
         /* Go back to UserList screen with refreshed users. */
-        startUseCase(); }
+        edit =1;
+        selectCreateRole(us2edit); }
 
 
     public void selectCreateUser(User user) {
